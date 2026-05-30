@@ -1,0 +1,9 @@
+
+[data-hero-scene] [data-depth]{transition:transform .45s cubic-bezier(.16,1,.3,1);will-change:transform}
+[data-hero-scene] .hero-photo{animation:heroFloat 7s ease-in-out infinite}
+[data-hero-scene] .badge-a{animation:floatBadge 5.5s ease-in-out infinite}
+[data-hero-scene] .badge-b{animation:floatBadge 6.1s ease-in-out infinite reverse}
+[data-hero-scene] .badge-c{animation:floatBadge 5.8s ease-in-out infinite .4s}
+@keyframes heroFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-8px,0)}}
+@keyframes floatBadge{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-10px,0)}}
+@media (prefers-reduced-motion:reduce){[data-hero-scene] .hero-photo,[data-hero-scene] .badge-a,[data-hero-scene] .badge-b,[data-hero-scene] .badge-c{animation:none !important}}
