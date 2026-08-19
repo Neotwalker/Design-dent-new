@@ -1,19 +1,68 @@
 # Design Dent - homepage prototype
 
-Static responsive homepage prepared for GitHub Pages / GitHub Deployer.
+Responsive static homepage prepared for GitHub Pages / GitHub Deployer and deliberately structured for a later WordPress integration.
 
 ## Structure
-- `index.html` - homepage
-- `assets/css/style.css` - styles
-- `assets/js/app.js` - interactions
-- `assets/img/` - local images and logo
+- `index.html` - homepage markup
+- `assets/css/style.css` - responsive UI styles
+- `assets/js/app.js` - menu, modal forms, lead-source fields, phone mask, sliders, FAQ, map guard and scroll-to-top
+- `assets/img/` - logo, doctors, hero and before/after clinical images
 
-## Important before production
-1. Replace the demo application form with the clinic's real form handler / CRM integration.
-2. Insert the official Yandex Reviews and ProDoctorov widget codes from the clinic accounts.
-3. Replace the before/after placeholder with patient materials that have publication consent.
-4. If available, replace the external 2GIS video link with an optimized local MP4/WebM and poster image.
-5. Recheck prices, ratings and review counts before launch because they change over time.
-6. Add the future pages: services, service detail, doctors, prices, reviews, blog archive and article.
+## WordPress mapping
+Recommended production split:
+- `header.php` - topbar, header, mobile menu
+- `footer.php` - footer, social links, modal form, floating controls
+- `front-page.php` - homepage sections
+- ACF options - contacts, opening hours, ratings fallback values, social links, video URL
+- CPT / dynamic content - `service`, `doctor`, `review` (only if needed in addition to widgets), `post`
+- Forms - CF7 + Flamingo or CRM/REST handler
+
+Every lead form already contains hidden analytics fields:
+- `form_id`
+- `form_name`
+- `source_block`
+- `cta_text`
+- `page_url`
+- `page_title`
+- `doctor`
+- `utm_source`
+- `utm_medium`
+- `utm_campaign`
+- `utm_content`
+- `utm_term`
+- `referrer`
+
+CTA buttons open the shared modal instead of scrolling to the bottom form. The lower form remains available as a direct inline conversion point.
+
+## Reviews and ratings
+The demo contains graceful fallback UI, not fake live synchronization.
+
+Production integration points are marked in `index.html`:
+- **Yandex Maps**: insert the official clinic reviews/rating widget code.
+- **ProDoctorov**: insert the official widget code from the clinic account.
+- **2GIS rating/count**: can be refreshed through Places API when an API key is available. Text reviews are not scraped.
+
+After official widgets are inserted, their data updates according to the source service. The exact amount/layout of displayed reviews depends on the official widget capabilities and configuration.
+
+## Map behavior
+On touch/coarse-pointer devices the embedded map has pointer interaction disabled by default so page scrolling is not captured. The visitor explicitly taps “Открыть интерактивную карту” to activate it.
+
+## Placeholder links
+Unknown contacts/pages intentionally use `href="#"`:
+- clinic e-mail
+- WhatsApp
+- Telegram
+- future service/doctor/blog/legal pages
+
+VK, phone, Yandex Maps, 2GIS and ProDoctorov links are already connected.
+
+## Before launch
+1. Add the real e-mail, WhatsApp and Telegram links.
+2. Connect CF7/Flamingo or CRM handling and server-side validation.
+3. Insert the official Yandex and ProDoctorov widget embeds; add 2GIS API key if dynamic rating is required.
+4. Confirm publication consent for all patient before/after materials.
+5. Prefer a local optimized MP4/WebM for the clinic video when the source file is available.
+6. Recheck prices, doctor facts, ratings and counts.
+7. Add the future pages: services, service detail, doctors, prices, all reviews, blog archive and article.
 
 The ZIP is prepared so that `index.html` is in the archive root.
