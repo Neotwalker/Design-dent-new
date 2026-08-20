@@ -429,6 +429,7 @@
   const modalSuccessClose = $('[data-success-close]');
   let lastFocused = null;
   let lockedScrollY = 0;
+  let modalCloseTimer = 0;
 
   let bodyLockSnapshot = null;
 
@@ -511,6 +512,8 @@
     });
     if (service && modalForm.elements.service) modalForm.elements.service.value = service;
 
+    window.clearTimeout(modalCloseTimer);
+    modal.classList.remove('is-closing');
     modal.removeAttribute('inert');
     modal.setAttribute('aria-hidden', 'false');
     modal.classList.add('is-open');
@@ -519,12 +522,10 @@
   };
 
   const closeLeadModal = () => {
-    if (!modal?.classList.contains('is-open')) return;
+    if (!modal?.classList.contains('is-open') || modal.classList.contains('is-closing')) return;
 
-    // Move focus out of the modal BEFORE making the modal aria-hidden/inert.
-    // Otherwise Chromium blocks aria-hidden because the focused close button
-    // is still a descendant of the element being hidden.
-    const activeElement = document.activeElement;
+    window.clearTimeout(modalCloseTimer);
+
     const restoreTarget =
       lastFocused instanceof HTMLElement &&
       lastFocused.isConnected &&
@@ -532,27 +533,36 @@
         ? lastFocused
         : null;
 
-    if (activeElement instanceof HTMLElement && modal.contains(activeElement)) {
-      activeElement.blur();
-    }
-    if (restoreTarget) {
-      try {
-        restoreTarget.focus({ preventScroll: true });
-      } catch (_) {
-        restoreTarget.focus();
-      }
-    }
-
-    modalSuccess?.classList.remove('is-visible');
-    modalSuccess?.setAttribute('inert', '');
-    modalSuccess?.setAttribute('aria-hidden', 'true');
-
+    // Keep the modal above the page while it visually closes.
     modal.classList.remove('is-open');
-    modal.setAttribute('inert', '');
-    modal.setAttribute('aria-hidden', 'true');
+    modal.classList.add('is-closing');
 
-    unlockBody();
-    lastFocused = null;
+    modalCloseTimer = window.setTimeout(() => {
+      const activeElement = document.activeElement;
+      if (activeElement instanceof HTMLElement && modal.contains(activeElement)) {
+        activeElement.blur();
+      }
+
+      modalSuccess?.classList.remove('is-visible');
+      modalSuccess?.setAttribute('inert', '');
+      modalSuccess?.setAttribute('aria-hidden', 'true');
+
+      modal.classList.remove('is-closing');
+      modal.setAttribute('inert', '');
+      modal.setAttribute('aria-hidden', 'true');
+
+      unlockBody();
+
+      if (restoreTarget) {
+        try {
+          restoreTarget.focus({ preventScroll: true });
+        } catch (_) {
+          restoreTarget.focus();
+        }
+      }
+
+      lastFocused = null;
+    }, 300);
   };
 
   $$('[data-open-lead]').forEach(trigger => trigger.addEventListener('click', () => openLeadModal(trigger)));

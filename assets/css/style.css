@@ -3055,3 +3055,26 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
     height:19px !important;
   }
 }
+
+
+/* ===== Stage 28: modal close lifecycle ===== */
+.lead-modal.is-closing{
+  z-index:200 !important;
+  opacity:0 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
+  transform:none !important;
+}
+.lead-modal.is-closing .lead-modal__backdrop{
+  opacity:0 !important;
+}
+.lead-modal.is-closing .lead-modal__dialog{
+  transform:scale(.96) !important;
+  opacity:0 !important;
+}
+.lead-modal[aria-hidden="true"]:not(.is-closing){
+  z-index:-1 !important;
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
