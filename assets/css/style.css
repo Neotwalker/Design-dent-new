@@ -2982,3 +2982,37 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
     width:19px !important;
   }
 }
+
+
+/* ===== Stage 25: force tablet/mobile header icon color ===== */
+@media (max-width:920px){
+  .site-header .header__actions .header-contact,
+  .site-header .header__actions .header-contact:link,
+  .site-header .header__actions .header-contact:visited{
+    color:var(--text) !important;
+  }
+
+  .site-header .header__actions .header-contact .icon,
+  .site-header .header__actions .header-contact svg,
+  .site-header .header__actions .header-contact svg use{
+    color:var(--text) !important;
+    stroke:var(--text) !important;
+  }
+
+  .site-header .header__actions .menu-toggle{
+    color:var(--text) !important;
+  }
+
+  .site-header .header__actions .menu-toggle span{
+    background:var(--text) !important;
+  }
+}
+
+@media (hover:hover) and (pointer:fine) and (max-width:920px){
+  .site-header .header__actions .header-contact:hover,
+  .site-header .header__actions .header-contact:hover .icon,
+  .site-header .header__actions .header-contact:hover svg{
+    color:var(--text) !important;
+    stroke:var(--text) !important;
+  }
+}
