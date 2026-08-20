@@ -119,6 +119,8 @@
   $('[data-service-prev]')?.addEventListener('click', () => scrollServices(-1));
   $('[data-service-next]')?.addEventListener('click', () => scrollServices(1));
 
+  const serviceCards = $$('.service-card', serviceTrack || document);
+
   // Fine-pointer drag scrolling for the services carousel. Native touch scrolling is left untouched.
   if (serviceTrack && matchMedia('(pointer: fine)').matches) {
     serviceTrack.classList.add('is-draggable');
@@ -160,6 +162,37 @@
       dragged = false;
     }, true);
   }
+
+  // Make the whole service card feel clickable, while preserving drag-scroll behaviour.
+  serviceCards.forEach(card => {
+    const targetLink = $('[data-service-link]', card) || $('.mini-link', card);
+    if (!targetLink) return;
+
+    card.addEventListener('click', event => {
+      if (event.target.closest('a,button,input,select,textarea,label')) return;
+      targetLink.click();
+    });
+
+    card.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      if (event.target.closest('a,button,input,select,textarea,label') && event.target !== card) return;
+      event.preventDefault();
+      targetLink.click();
+    });
+  });
+
+  // Licenses and certificates slider.
+  const credentialsTrack = $('[data-credentials-track]');
+  const scrollCredentials = direction => {
+    if (!credentialsTrack) return;
+    const card = $('.document-card', credentialsTrack);
+    const styles = card ? getComputedStyle(credentialsTrack) : null;
+    const gap = styles ? parseFloat(styles.columnGap || styles.gap || 16) : 16;
+    const amount = card ? card.getBoundingClientRect().width + gap : 320;
+    credentialsTrack.scrollBy({ left: amount * direction, behavior: 'smooth' });
+  };
+  $('[data-credentials-prev]')?.addEventListener('click', () => scrollCredentials(-1));
+  $('[data-credentials-next]')?.addEventListener('click', () => scrollCredentials(1));
 
   // Before / after
   const beforeRange = $('[data-before-range]');
@@ -219,7 +252,7 @@
     if (!mapShell.contains(event.target) && matchMedia('(pointer: coarse)').matches) mapShell.classList.remove('is-active');
   });
 
-  // Russian phone mask. Placeholder stays visible while empty; Backspace always removes the previous digit rather than a formatting character.
+  // Russian phone mask. Placeholder stays visible while empty; Backspace removes the last entered digit even when the caret sits after a formatting character.
   const formatPhone = raw => {
     let digits = String(raw || '').replace(/\D/g, '');
     if (!digits) return '';
@@ -241,20 +274,26 @@
   };
 
   $$('[data-phone-mask]').forEach(input => {
-    input.value = formatPhone(input.value);
+    const digitsOnly = value => String(value || '').replace(/\D/g, '');
     const moveCaretToEnd = () => {
-      requestAnimationFrame(() => input.setSelectionRange(input.value.length, input.value.length));
+      requestAnimationFrame(() => {
+        const pos = input.value.length;
+        input.setSelectionRange(pos, pos);
+      });
     };
-    const digitsOnly = () => String(input.value || '').replace(/\D/g, '');
+
+    if (digitsOnly(input.value)) input.value = formatPhone(input.value);
 
     input.addEventListener('input', () => {
-      input.value = formatPhone(input.value);
+      const digits = digitsOnly(input.value);
+      input.value = digits ? formatPhone(digits) : '';
       moveCaretToEnd();
     });
 
     input.addEventListener('paste', event => {
       event.preventDefault();
-      input.value = formatPhone(event.clipboardData?.getData('text') || '');
+      const digits = digitsOnly(event.clipboardData?.getData('text') || '');
+      input.value = digits ? formatPhone(digits) : '';
       moveCaretToEnd();
     });
 
@@ -262,20 +301,17 @@
       if (event.key !== 'Backspace') return;
       const start = input.selectionStart ?? input.value.length;
       const end = input.selectionEnd ?? start;
-      if (start !== end) return; // browser removes a selected fragment; input handler will reformat it.
+      const digits = digitsOnly(input.value);
+      if (!digits) return;
+
+      // If there is a selection, let the browser remove it and then normalize on input.
+      if (start !== end) return;
 
       event.preventDefault();
-      let digits = digitsOnly();
-      if (!digits || digits === '7') {
-        input.value = '';
-        return;
-      }
-
-      // The mask always keeps editing at the end, so remove the last entered national-number digit.
-      digits = digits.slice(0, -1);
-      input.value = digits === '7' ? '' : formatPhone(digits);
+      const normalized = digits[0] === '7' ? digits.slice(1) : digits;
+      const shortened = normalized.slice(0, -1);
+      input.value = shortened ? formatPhone(`7${shortened}`) : '';
       moveCaretToEnd();
-      input.dispatchEvent(new Event('input', { bubbles: true }));
     });
   });
 
