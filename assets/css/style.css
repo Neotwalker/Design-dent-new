@@ -2814,3 +2814,11 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
     text-overflow:ellipsis;
   }
 }
+
+
+/* ===== Stage 22: mobile hero height ===== */
+@media (max-width:620px){
+  .hero__card{
+    min-height:650px !important;
+  }
+}
