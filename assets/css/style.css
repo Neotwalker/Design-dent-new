@@ -3105,3 +3105,48 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
     font-size:16px;
   }
 }
+
+
+/* ===== Stage 30: doctor card footer alignment ===== */
+.doctor-card__foot{
+  align-items:center;
+  font-family:inherit;
+  font-size:14px;
+  line-height:1.4;
+}
+
+.doctor-card__foot > span{
+  display:inline-flex;
+  align-items:center;
+  min-height:24px;
+  font-family:inherit;
+  font-size:14px;
+  line-height:1.4;
+  font-weight:500;
+}
+
+.doctor-book{
+  min-height:24px;
+  font-family:inherit;
+  font-size:14px;
+  line-height:1.4;
+  font-weight:700;
+}
+
+.doctor-book > span{
+  font-family:inherit;
+  font-size:inherit;
+  line-height:inherit;
+}
+
+.doctor-book .icon{
+  flex:0 0 auto;
+}
+
+@media (max-width:620px){
+  .doctor-card__foot,
+  .doctor-card__foot > span,
+  .doctor-book{
+    font-size:13px;
+  }
+}
