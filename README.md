@@ -66,3 +66,13 @@ VK, phone, Yandex Maps, 2GIS and ProDoctorov links are already connected.
 7. Add the future pages: services, service detail, doctors, prices, all reviews, blog archive and article.
 
 The ZIP is prepared so that `index.html` is in the archive root.
+
+## QA / responsive stages
+
+Stage 1 (current archive): desktop refinement for 1181px+ / 1280-1920px.
+- wider responsive container and stronger desktop typography;
+- four complete service cards per viewport without accidental clipping;
+- unified two-card doctors layout;
+- resized reviews, price, blog, FAQ, forms, contacts and footer;
+- development-only explanatory copy removed from the public interface;
+- tablet (768/1024) and mobile (<=620) are intentionally left for the next QA stages.
