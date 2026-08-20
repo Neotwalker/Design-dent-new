@@ -1984,3 +1984,43 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
     touch-action:pan-x pan-y;
   }
 }
+
+
+/* ===== Stage 15: slider button hover polish ===== */
+.slider-buttons button{
+  transition:
+    background-color .26s var(--ease-ui),
+    border-color .26s var(--ease-ui),
+    color .26s var(--ease-ui),
+    transform .26s var(--ease-ui),
+    box-shadow .26s var(--ease-ui);
+}
+.slider-buttons button .icon{
+  color:currentColor;
+  transition:
+    transform .26s var(--ease-ui),
+    color .26s var(--ease-ui);
+}
+
+@media (hover:hover) and (pointer:fine){
+  .slider-buttons button:hover{
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#fff;
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px rgba(47,111,115,.16);
+  }
+  .slider-buttons button[data-service-prev]:hover .icon,
+  .slider-buttons button[data-credentials-prev]:hover .icon{
+    transform:translateX(-3px);
+  }
+  .slider-buttons button[data-service-next]:hover .icon,
+  .slider-buttons button[data-credentials-next]:hover .icon{
+    transform:translateX(3px);
+  }
+}
+
+.slider-buttons button:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:3px;
+}
