@@ -2024,3 +2024,140 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
   outline:2px solid var(--gold);
   outline-offset:3px;
 }
+
+/* ===== Stage 16: tablet / <=1180 fixes ===== */
+
+/* Keep header controls pinned to the opposite edge from the logo whenever desktop nav is gone. */
+@media (max-width:1180px){
+  .header__actions{
+    margin-left:auto !important;
+  }
+}
+
+/* Yandex widget: fill the tablet review column visually as well as geometrically. */
+@media (max-width:1180px){
+  .yandex-reviews-widget{
+    width:100%;
+    max-width:none;
+    background:#fff !important;
+  }
+  .yandex-reviews-widget iframe{
+    display:block;
+    width:100% !important;
+    min-width:100% !important;
+    max-width:none !important;
+    background:#fff;
+  }
+}
+
+/* Tablet portrait: hero should show the core proposition without occupying almost a full screen. */
+@media (min-width:621px) and (max-width:920px){
+  .hero__card{
+    min-height:600px;
+  }
+  .hero__content{
+    top:42px;
+  }
+  .hero__tags{
+    bottom:96px;
+  }
+  .hero__founder{
+    bottom:16px;
+  }
+}
+
+/* Blog becomes a real horizontal rail from tablet portrait downwards. */
+@media (max-width:920px){
+  .blog-grid{
+    display:grid;
+    grid-template-columns:none !important;
+    grid-auto-flow:column;
+    grid-auto-columns:calc((100% - 16px) / 2);
+    gap:16px;
+    overflow-x:auto;
+    overflow-y:visible;
+    scroll-snap-type:x mandatory;
+    scroll-padding-inline:2px;
+    padding:8px 2px 20px;
+    margin:0;
+    scrollbar-width:thin;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+  }
+  .blog-card,
+  .blog-card:last-child{
+    grid-column:auto !important;
+    width:100%;
+    min-width:0;
+    scroll-snap-align:start;
+  }
+  .blog-grid::-webkit-scrollbar{height:8px}
+  .blog-grid::-webkit-scrollbar-track{background:#eef0ed;border-radius:999px}
+  .blog-grid::-webkit-scrollbar-thumb{background:#c8cfcb;border-radius:999px}
+}
+
+@media (max-width:620px){
+  .blog-grid{
+    grid-auto-columns:100%;
+    gap:12px;
+    padding-inline:1px;
+    scroll-padding-inline:1px;
+  }
+}
+
+/* Tablet footer: secondary information must remain comfortably readable. */
+@media (min-width:621px) and (max-width:920px){
+  .footer{
+    padding:62px 0 26px;
+  }
+  .footer__top{
+    gap:38px 30px;
+  }
+  .footer__brand img{
+    width:190px;
+    height:100px;
+  }
+  .footer__brand p{
+    max-width:390px;
+    font-size:15px;
+    line-height:1.7;
+  }
+  .footer__links strong,
+  .footer__contact>strong{
+    font-size:15px;
+  }
+  .footer__links a,
+  .footer__links button,
+  .footer__contact>a:not(.footer__phone),
+  .footer__contact span{
+    font-size:14px;
+    line-height:1.6;
+  }
+  .footer__phone{
+    font-size:24px;
+  }
+  .footer__legal{
+    gap:18px;
+    margin-top:46px;
+  }
+  .footer__legal a,
+  .footer__bottom{
+    font-size:12px;
+    line-height:1.55;
+  }
+}
+
+/* Inactive overlays must not sit above or intersect the page at all. */
+.lead-modal[aria-hidden="true"],
+.lead-success[aria-hidden="true"]{
+  display:none !important;
+}
+.cookie-banner[hidden],
+.inline-success-overlay[hidden]{
+  display:none !important;
+}
+
+/* The inline success state explicitly opts back in when JS reveals it. */
+.inline-success-overlay.is-visible{
+  display:flex !important;
+}
