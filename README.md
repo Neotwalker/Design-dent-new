@@ -82,3 +82,7 @@ The ZIP is prepared so that `index.html` is in the archive root.
 - made the full blog card clickable
 - smoother FAQ reveal
 - semantic cleanup: ordered advantages list, single clickable blog area, labelled review navigation/iframes
+
+## Stage 3 - tablet landscape / 1024 px
+
+Added a dedicated 921-1180 px responsive layer rather than shrinking the desktop layout. The stage focuses on 1024 px landscape/tablet widths: three complete service cards, stable equal doctor cards, a compact two-column founder block, side-by-side review sources, corrected spacing and readable tablet typography.

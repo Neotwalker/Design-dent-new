@@ -732,3 +732,199 @@ body.modal-open{overscroll-behavior:none}
 .review-source-card__stat{margin:24px 0;display:flex;align-items:flex-end;gap:12px}
 .review-source-card__stat strong{font-size:52px;line-height:.9;letter-spacing:-.05em}
 .review-source-card__stat span{max-width:170px;color:var(--muted);font-size:12px;line-height:1.45}
+
+/* Tablet landscape refinement - stage 3 (921px-1180px)
+   The 1024px range gets its own layout instead of inheriting a compressed desktop. */
+@media (min-width:921px) and (max-width:1180px){
+  :root{
+    --container:calc(100% - 48px);
+    --header-h:82px;
+  }
+
+  body{font-size:15px}
+  .section{padding:92px 0}
+  .eyebrow{font-size:12px;margin-bottom:16px}
+  h1{font-size:58px;line-height:1;letter-spacing:-.05em}
+  h2{font-size:46px;line-height:1.02}
+  h3{font-size:24px}
+  .section-head{grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:42px;margin-bottom:42px;align-items:end}
+  .section-head>p{font-size:14px;line-height:1.7;max-width:420px}
+  .btn{min-height:52px;padding-inline:24px;font-size:13px}
+  .btn--sm{min-height:44px;padding-inline:20px}
+  .text-link{font-size:13px}
+
+  /* Header: keep tablet controls readable without forcing the desktop navigation. */
+  .topbar{font-size:12px}
+  .topbar__inner{height:38px;gap:30px}
+  .topbar__contacts{gap:18px}
+  .topbar__contacts a{font-size:12px}
+  .header__inner{height:var(--header-h);gap:20px}
+  .brand{width:158px}
+  .brand img{height:56px}
+  .header__actions{gap:10px}
+  .header__contacts{gap:3px}
+  .header-contact{font-size:11px}
+  .header-contact:first-child{font-size:13px}
+  .header-contact .icon{width:16px;height:16px}
+  .menu-toggle{width:48px;height:48px;gap:6px}
+  .menu-toggle span{width:22px}
+
+  /* Hero: preserve the desktop composition, but tighten it for 1024. */
+  .hero{padding-top:18px}
+  .hero__card{min-height:660px;border-radius:30px}
+  .hero__image{object-position:68% center}
+  .hero__shade{background:linear-gradient(90deg,rgba(11,31,34,.9) 0%,rgba(11,31,34,.64) 48%,rgba(11,31,34,.16) 80%),linear-gradient(0deg,rgba(13,29,31,.7),transparent 48%)}
+  .hero__content{top:58px;left:42px;max-width:620px}
+  .hero__content h1{max-width:610px;margin-bottom:24px}
+  .hero__content p{font-size:16px;line-height:1.7;max-width:520px;margin-bottom:28px}
+  .hero__buttons{gap:10px}
+  .hero__tags{left:28px;right:304px;bottom:28px;gap:7px;padding:0;overflow-x:auto;flex-wrap:nowrap}
+  .hero__tags a{font-size:11px;padding:9px 13px}
+  .hero__founder{right:20px;bottom:20px;min-width:270px;padding:15px 52px 15px 16px;border-radius:17px}
+  .hero__founder-label{font-size:10px}
+  .hero__founder strong{font-size:14px}
+  .arrow-circle{width:34px;height:34px}
+
+  /* Ratings stay in one row at 1024, but with tablet-specific density. */
+  .trust{padding-top:20px}
+  .trust__grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .rating-card{min-height:116px;padding:17px;border-radius:20px;gap:10px}
+  .rating-card strong{font-size:38px}
+  .rating-card__source{font-size:10px}
+  .rating-card__meta{font-size:9px;padding-right:24px}
+  .rating-card__icon{right:12px;top:12px;width:28px;height:28px}
+  .rating-card--yandex-widget{padding:14px 42px 14px 14px;justify-content:center}
+  .rating-card__widget-copy{display:none}
+  .yandex-rating-badge{flex:0 0 150px;max-width:100%}
+  .rating-card__widget-link{right:10px;top:10px;width:28px;height:28px}
+
+  /* Services: exactly three complete cards instead of a clipped fourth. */
+  .service-track{grid-auto-columns:calc((100% - 28px)/3);gap:14px;padding:2px 0 14px;scroll-padding-inline:0}
+  .service-card{min-height:420px;border-radius:22px}
+  .service-card__visual{height:160px}
+  .service-card__visual svg{width:78px;height:78px}
+  .service-card__body{padding:20px}
+  .service-card h3{font-size:20px;line-height:1.12;margin-bottom:11px}
+  .service-card p{font-size:12px;line-height:1.6;margin-bottom:22px}
+  .service-card__bottom strong{font-size:13px}
+  .services__controls{margin-top:18px}
+  .services__controls p{font-size:12px;line-height:1.6;max-width:520px}
+  .slider-buttons button{width:42px;height:42px}
+
+  /* Founder: a real two-column tablet layout, not a squeezed desktop block. */
+  .founder__grid{grid-template-columns:minmax(350px,.9fr) minmax(0,1.1fr);gap:42px;align-items:center}
+  .founder__image-wrap{min-height:520px;border-radius:26px}
+  .founder__badge{left:16px;bottom:16px;padding:11px 14px}
+  .founder__badge span{font-size:24px}
+  .founder__badge small{font-size:9px}
+  .founder__content h2{font-size:56px;line-height:1;margin-bottom:22px}
+  .founder__content .lead{font-size:15px;line-height:1.7}
+  .founder__facts{margin:28px 0;border-radius:18px}
+  .founder__facts div{padding:14px 12px}
+  .founder__facts strong{font-size:17px}
+  .founder__facts span{font-size:9px;line-height:1.4}
+  .founder__actions{gap:16px}
+
+  /* Video is intentionally shorter than desktop to avoid an oversized dead zone. */
+  .video-section{padding-top:0;padding-bottom:92px}
+  .video-card{min-height:520px;border-radius:28px}
+  .video-card__content{left:38px;bottom:38px;max-width:500px}
+  .video-card__content h2{font-size:54px;line-height:1;margin-bottom:14px}
+  .video-card__content p{font-size:14px}
+  .video-card__cta{font-size:13px;margin-top:18px}
+  .play-button{right:38px;width:78px;height:78px}
+  .play-button .icon{width:34px;height:34px}
+
+  /* Results: keep the clinical square imagery readable without a desktop-wide crop. */
+  .before-after{height:auto;min-height:0;aspect-ratio:4/3;border-radius:28px}
+  .before-after__base img,.before-after__after img{object-fit:contain;background:#ece9e2}
+  .before-after__line span{width:58px;height:58px}
+  .results__meta{margin-top:20px;gap:22px}
+  .results__meta>div span{font-size:26px}
+  .results__meta strong{font-size:14px}
+  .results__meta small,.results__meta p{font-size:11px;line-height:1.55}
+
+  /* Advantages: center each row and keep both text columns legible. */
+  .advantages__title{margin-bottom:44px}
+  .advantages__list li{grid-template-columns:68px 1fr;gap:22px;padding:26px 0;align-items:center}
+  .advantages__list li>span{font-size:36px}
+  .advantages__list li>div{grid-template-columns:minmax(220px,.8fr) minmax(0,1.2fr);gap:28px;align-items:center}
+  .advantages__list h3{font-size:23px}
+  .advantages__list p{font-size:13px;line-height:1.7}
+
+  /* Doctors: both specialists use the same stable tablet component. */
+  .doctors__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .doctor-card,.doctor-card--wide{grid-template-columns:1fr;grid-template-rows:370px auto;border-radius:24px}
+  .doctor-card__body{padding:24px}
+  .doctor-card__role{font-size:9px;margin-bottom:12px}
+  .doctor-card h3{font-size:32px;line-height:1.03;margin-bottom:13px;overflow-wrap:normal}
+  .doctor-card p{font-size:12px;line-height:1.6;margin-bottom:16px}
+  .doctor-card__tags{gap:6px;margin:2px 0 18px}
+  .doctor-card__tags span{font-size:9px;padding:7px 9px}
+  .doctor-card__image-tag{font-size:8px;left:14px;bottom:14px}
+  .doctor-card__foot{font-size:11px;padding-top:16px;align-items:center}
+  .doctor-book{font-size:11px;gap:6px}
+  .doctor-book .icon{width:17px;height:17px}
+
+  /* Reviews: intro first, then both independent sources side by side. */
+  .reviews__container{grid-template-columns:1fr;gap:34px}
+  .reviews__intro{max-width:680px}
+  .reviews__intro p{font-size:14px;line-height:1.7;max-width:620px}
+  .review-list--widgets{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .yandex-reviews-widget,.review-source-card{min-height:430px}
+  .yandex-reviews-widget iframe{height:430px}
+  .review-source-card{padding:24px}
+  .review-source-card h3{font-size:26px;margin:18px 0 12px}
+  .review-source-card p{font-size:13px;line-height:1.65}
+  .review-source-card__stat{margin:18px 0}
+  .review-source-card__stat strong{font-size:44px}
+  .review-source-card__stat span{font-size:11px}
+  .reviews__links{grid-column:1;gap:18px}
+  .reviews__links a{font-size:12px}
+
+  /* Prices and blog keep tablet density without miniature type. */
+  .price-preview__grid{grid-template-columns:minmax(280px,.78fr) minmax(0,1.22fr);gap:42px}
+  .price-preview__grid>div:first-child p{font-size:14px;line-height:1.7}
+  .price-list div{padding:18px 0}
+  .price-list span{font-size:13px}
+  .price-list strong{font-size:18px}
+  .blog-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .blog-card{min-height:350px;border-radius:22px}
+  .blog-card__click{padding:22px}
+  .blog-card__category{font-size:10px;margin-bottom:24px}
+  .blog-card h3{font-size:21px;line-height:1.12;margin-bottom:14px}
+  .blog-card p{font-size:12px;line-height:1.65}
+  .blog-card__meta{font-size:10px;gap:9px}
+  .blog-card__link{font-size:12px}
+
+  /* FAQ and form remain two-column at landscape tablet, with readable controls. */
+  .faq-section__grid{grid-template-columns:minmax(260px,.7fr) minmax(0,1.3fr);gap:42px}
+  .faq{border-radius:22px;padding:6px 20px}
+  .faq__item button{font-size:16px;padding:20px 0}
+  .faq__answer>p{font-size:13px;line-height:1.7}
+  .appointment__card{grid-template-columns:minmax(280px,.82fr) minmax(0,1.18fr);gap:36px;padding:34px;border-radius:26px}
+  .appointment__copy p{font-size:13px;line-height:1.7}
+  .appointment__contacts a{font-size:24px}
+  .lead-form{padding:22px;gap:12px}
+  .lead-form label>span:first-child{font-size:10px}
+  .lead-form input,.lead-form select{min-height:52px;font-size:13px}
+  .checkbox__text{font-size:11px!important}
+
+  /* Contacts and footer make better use of the landscape width. */
+  .contacts__grid{grid-template-columns:minmax(280px,.72fr) minmax(0,1.28fr);gap:38px}
+  .contacts__info dl{margin:34px 0}
+  .contacts__info dl div{grid-template-columns:120px 1fr;padding:15px 0}
+  .contacts__info dt{font-size:11px}
+  .contacts__info dd{font-size:13px}
+  .contacts__links a{font-size:12px}
+  .contacts__map,.contacts__map iframe{min-height:450px}
+  .footer{padding:60px 0 22px}
+  .footer__top{grid-template-columns:1.25fr .7fr .7fr 1fr;gap:26px}
+  .footer__brand img{width:168px;height:86px}
+  .footer__brand p{font-size:11px;line-height:1.65}
+  .footer__links strong,.footer__contact>strong{font-size:12px}
+  .footer__links a,.footer__links button,.footer__contact>a:not(.footer__phone),.footer__contact span{font-size:11px}
+  .footer__phone{font-size:17px}
+  .footer__legal{margin-top:42px}
+  .footer__bottom{font-size:9px}
+}
