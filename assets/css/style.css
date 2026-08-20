@@ -1228,3 +1228,112 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
 @media (max-width:1180px){
   .header__socials{display:none}
 }
+
+/* ===== Stage 6: wide-desktop stability + interaction consistency ===== */
+
+/* Keep the sticky header stable while only the topbar collapses. */
+.site-chrome{
+  transform:none!important;
+  transition:none!important;
+}
+.topbar{
+  height:var(--topbar-h);
+  max-height:var(--topbar-h);
+  opacity:1!important;
+  transform:none!important;
+  overflow:hidden;
+  transition:height .24s var(--ease-ui),max-height .24s var(--ease-ui)!important;
+}
+.site-chrome.is-topbar-hidden{
+  transform:none!important;
+}
+.site-chrome.is-topbar-hidden .topbar{
+  height:0!important;
+  max-height:0!important;
+  opacity:1!important;
+  transform:none!important;
+  pointer-events:none;
+}
+
+/* More recognisable, detailed social glyphs. */
+.header__socials .icon{width:24px;height:24px}
+.footer__socials .icon{width:22px;height:22px}
+.header__socials a,.footer__socials a{overflow:visible}
+
+/* All arrow links keep one colour for label and icon. */
+.text-link,
+.reviews__links a,
+.contacts__links a,
+.blog-card__link{
+  transition:color .28s var(--ease-ui),transform .28s var(--ease-ui);
+}
+.text-link .icon,
+.reviews__links a .icon,
+.contacts__links a .icon,
+.blog-card__link .icon,
+.doctor-book .icon{
+  color:currentColor!important;
+  transition:transform .28s var(--ease-ui),color .28s var(--ease-ui);
+}
+
+/* Contact links should visibly respond to interaction. */
+.contacts__info dd a,
+.appointment__contacts a{
+  transition:color .26s var(--ease-ui),text-decoration-color .26s var(--ease-ui);
+  text-decoration-color:transparent;
+  text-underline-offset:4px;
+}
+
+/* Footer logo is now a real transparent white asset, no filter/plate required. */
+.footer__brand img{
+  filter:none!important;
+  opacity:1!important;
+  background:transparent!important;
+}
+
+@media (hover:hover) and (pointer:fine){
+  .contacts__info dd a:hover,
+  .appointment__contacts a:hover{
+    color:var(--gold-dark);
+    text-decoration:underline;
+    text-decoration-color:currentColor;
+  }
+  .text-link:hover,
+  .reviews__links a:hover,
+  .contacts__links a:hover{
+    color:var(--gold-dark)!important;
+  }
+  .text-link:hover .icon,
+  .reviews__links a:hover .icon,
+  .contacts__links a:hover .icon{
+    color:currentColor!important;
+    transform:translate(3px,-3px);
+  }
+  .blog-card__click:hover .blog-card__link{
+    color:var(--gold-dark);
+  }
+  .blog-card__click:hover .blog-card__link .icon{
+    color:currentColor!important;
+    transform:translateX(3px);
+  }
+}
+
+/* Wide screens need a taller hero so CTA and service chips never collide. */
+@media (min-width:1600px){
+  .hero__card{min-height:820px}
+  .hero__content{top:82px;max-width:940px}
+  .hero__content h1{max-width:940px}
+  .hero__content p{max-width:700px}
+  .hero__tags{left:58px;right:430px;bottom:40px}
+  .hero__founder{bottom:28px}
+}
+
+@media (min-width:2200px){
+  .hero__card{min-height:900px}
+  .hero__content{top:90px;max-width:1060px}
+  .hero__content h1{max-width:1060px}
+  .hero__content p{max-width:760px}
+  .hero__tags{left:66px;right:500px;bottom:46px;gap:12px}
+  .hero__tags a{padding:12px 20px}
+  .hero__founder{right:32px;bottom:32px}
+}

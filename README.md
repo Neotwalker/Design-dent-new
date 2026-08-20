@@ -16,3 +16,15 @@ Changes in this stage:
 - footer phone has a dedicated hover color.
 
 `index.html` is at the archive root for GitHub Deployer.
+
+## Stage 6 - desktop bugfix pass
+
+Исправления текущего прохода:
+
+- на wide/2K desktop увеличена высота hero и ширина текстовой колонки, чтобы CTA не пересекались с быстрыми тегами;
+- иконки VK / WhatsApp / Telegram заменены на более детализированные brand-style SVG;
+- логика sticky header изменена: при скролле сворачивается только topbar, основной header больше не сдвигается transform-ом;
+- добавлены hover-состояния для телефон/email в contacts__info и телефона в appointment__contacts;
+- footer logo заменён на отдельный PNG с реальным прозрачным фоном и белым знаком/надписью;
+- унифицирован hover у ссылок со стрелкой: текст и SVG всегда наследуют один цвет;
+- сохранены предыдущие desktop/topbar/modal/scroll-lock исправления.
