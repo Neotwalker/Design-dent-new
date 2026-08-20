@@ -3078,3 +3078,30 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
   visibility:hidden !important;
   pointer-events:none !important;
 }
+
+
+/* ===== Stage 29: prevent iOS Safari form zoom ===== */
+/*
+  iOS Safari automatically zooms a page when focusing form controls
+  whose computed font-size is below 16px.
+  Keep the controls themselves at 16px+ on phones instead of disabling zoom
+  through viewport restrictions.
+*/
+@media (max-width:620px){
+  input,
+  textarea,
+  select,
+  .lead-form input,
+  .lead-form textarea,
+  .lead-form select,
+  .appointment__form input,
+  .appointment__form textarea,
+  .appointment__form select{
+    font-size:16px !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder{
+    font-size:16px;
+  }
+}
