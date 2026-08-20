@@ -1105,3 +1105,126 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
   .header__mobile-contacts a:hover{background:var(--teal-soft);border-color:#cbd8d6;color:var(--teal)}
 }
 .hero-video-trigger__icon,.trust-card__icon{transition:transform var(--motion-base) var(--ease-ui),background-color var(--motion-base) var(--ease-ui),color var(--motion-base) var(--ease-ui),box-shadow var(--motion-base) var(--ease-ui)}
+
+/* Desktop refinement - stage 5: topbar, 2K legibility and interaction polish */
+:root{--topbar-h:42px}
+
+/* Topbar: operational information on the left, contacts on the right. */
+.topbar{height:var(--topbar-h);max-height:none;opacity:1;transform:none;overflow:hidden;transition:none}
+.topbar__inner{height:var(--topbar-h);display:flex;align-items:center;gap:28px}
+.topbar__meta{display:flex;align-items:center;gap:26px;color:#d9e5e4;white-space:nowrap}
+.topbar__meta span{display:inline-flex;align-items:center;gap:8px;font-size:12px}
+.topbar__meta .icon{width:15px;height:15px;color:#cfa857}
+.topbar__contacts{margin-left:auto;display:flex;align-items:center;gap:24px}
+
+/* Move only the whole sticky chrome. No opacity/height animation, so the bar does not flicker. */
+.site-chrome{transition:transform .28s var(--ease-ui);will-change:transform}
+.site-chrome.is-topbar-hidden{transform:translateY(calc(-1 * var(--topbar-h)))}
+.site-chrome.is-chrome-frozen{transition:none}
+.site-chrome.is-topbar-hidden .topbar{pointer-events:none}
+
+/* Social icons now live in the main header, where desktop contacts used to be. */
+.header__socials{display:flex;align-items:center;gap:9px}
+.header__socials a{position:relative;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--teal);background:#fff}
+.header__socials .icon{width:21px;height:21px}
+.header__socials a::after{content:attr(data-tooltip);position:absolute;left:50%;top:calc(100% + 9px);z-index:10;transform:translate(-50%,5px);padding:7px 10px;border-radius:8px;background:var(--teal-deep);color:#fff;font-size:11px;line-height:1;white-space:nowrap;box-shadow:0 9px 24px rgba(13,29,31,.16);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,transform .2s var(--ease-ui),visibility 0s linear .2s}
+
+/* Dark hero tags need a high-contrast hover state. */
+.hero__tags a:hover{background:#fff!important;border-color:#fff!important;color:var(--teal-deep)!important}
+
+/* Text and icon on external/profile links always use one color. */
+.text-link:hover,.text-link:hover .icon{color:var(--gold-dark)!important}
+.text-link .icon{transition:transform .28s var(--ease-ui),color .28s var(--ease-ui)}
+
+/* Blog metadata is part of the teal UI system; the action arrow follows currentColor. */
+.blog-card__meta .icon{color:var(--teal)}
+.blog-card__link .icon{color:currentColor}
+
+/* Restore the live Yandex reviews widget. */
+.yandex-reviews-widget{min-height:560px;border-radius:24px;overflow:hidden;background:#fff;border:1px solid rgba(47,111,115,.12);box-shadow:0 12px 32px rgba(20,37,38,.06);transition:transform .28s var(--ease-ui),box-shadow .28s var(--ease-ui),border-color .28s var(--ease-ui)}
+.yandex-reviews-widget iframe{display:block;width:100%;height:560px;border:0}
+
+/* White footer logo without any translucent plate. */
+.footer__brand img{filter:brightness(0) invert(1)!important;opacity:1!important;background:transparent!important}
+.footer__phone{color:#fff;transition:color .26s var(--ease-ui)}
+
+@media (hover:hover) and (pointer:fine){
+  .header__socials a:hover{background:var(--teal);border-color:var(--teal);color:#fff;transform:translateY(-2px);box-shadow:0 10px 24px rgba(47,111,115,.16)}
+  .header__socials a:hover::after{opacity:1;visibility:visible;transform:translate(-50%,0);transition-delay:0s}
+  .yandex-reviews-widget:hover{transform:translateY(-4px);box-shadow:0 16px 38px rgba(20,37,38,.08);border-color:rgba(47,111,115,.28)}
+  .footer__phone:hover{color:#d8ae5b!important}
+}
+
+/* 2K+ screens: secondary text should remain readable without zooming. */
+@media (min-width:1600px){
+  :root{--container:min(1680px,calc(100% - 120px));--topbar-h:46px}
+  body{font-size:18px}
+  .topbar__inner{height:var(--topbar-h)}
+  .topbar__meta span,.topbar__contact{font-size:14px}
+  .topbar__meta .icon,.topbar__contact .icon{width:17px;height:17px}
+  .desktop-nav a{font-size:16px}
+  .header__socials a{width:46px;height:46px}
+  .header__socials .icon{width:22px;height:22px}
+  .btn--sm{font-size:15px}
+  .hero__content p{font-size:20px}
+  .hero__tags a{font-size:14px}
+  .hero__founder-label{font-size:13px}
+  .hero__founder strong{font-size:19px}
+  .trust-card__source,.trust-card__label{font-size:13px}
+  .section-head>p{font-size:17px}
+  .service-card p{font-size:15px}
+  .service-card__bottom strong{font-size:16px}
+  .services__controls p{font-size:14px}
+  .founder__content .lead{font-size:19px}
+  .founder__facts span{font-size:13px}
+  .text-link,.doctor-book{font-size:15px}
+  .result-case__doctor{font-size:14px}
+  .result-case__steps dt{font-size:13px}
+  .result-case__steps dd{font-size:14px}
+  .advantages__list p{font-size:16px}
+  .doctor-card p{font-size:15px}
+  .doctor-card__tags span{font-size:12px}
+  .doctor-card__foot{font-size:14px}
+  .reviews__intro p{font-size:16px}
+  .reviews__links--intro a{font-size:14px}
+  .review-source-card p{font-size:14px}
+  .review-source-card__stat span{font-size:13px}
+  .price-preview__grid>div:first-child p{font-size:16px}
+  .price-list span{font-size:17px}
+  .blog-card p{font-size:15px}
+  .blog-card__category{font-size:13px}
+  .blog-card__meta{font-size:12px}
+  .blog-card__link{font-size:14px}
+  .faq__answer>p{font-size:15px}
+  .appointment__copy p{font-size:16px}
+  .appointment__contacts span{font-size:13px}
+  .lead-form label>span:first-child{font-size:13px}
+  .lead-form input,.lead-form select{font-size:16px}
+  .checkbox__text{font-size:13px!important}
+  .contacts__info dt{font-size:13px}
+  .contacts__info dd{font-size:16px}
+  .contacts__links a{font-size:14px}
+  .footer__brand p{font-size:14px}
+  .footer__links strong,.footer__contact>strong{font-size:14px}
+  .footer__links a,.footer__links button,.footer__contact>a:not(.footer__phone),.footer__contact span{font-size:14px}
+  .footer__phone{font-size:24px}
+  .footer__legal a,.footer__bottom{font-size:12px}
+}
+
+@media (min-width:2200px){
+  :root{--container:min(1840px,calc(100% - 160px));--topbar-h:48px}
+  body{font-size:19px}
+  h1{font-size:104px}
+  h2{font-size:80px}
+  .topbar__meta span,.topbar__contact{font-size:15px}
+  .desktop-nav a{font-size:17px}
+  .section-head>p{font-size:18px}
+  .hero__content p{font-size:21px}
+  .service-card p,.doctor-card p,.review-source-card p,.blog-card p,.faq__answer>p{font-size:16px}
+  .footer__brand p,.footer__links a,.footer__links button,.footer__contact>a:not(.footer__phone),.footer__contact span{font-size:15px}
+  .footer__phone{font-size:26px}
+}
+
+@media (max-width:1180px){
+  .header__socials{display:none}
+}

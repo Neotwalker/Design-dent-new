@@ -1,30 +1,18 @@
-# Design Dent - Stage 4 desktop refinement
+# Design Dent - desktop stage 5
 
-Этап продолжает desktop/tablet landscape версию главной и готовит её к дальнейшей интеграции в WordPress.
+Desktop refinement after review on a 2K display.
 
-## Что изменено
+Changes in this stage:
+- topbar restored with address/city and opening hours on the left, phone/email on the right;
+- VK and WhatsApp moved to larger icon-only controls in the main desktop header;
+- topbar scroll behavior rewritten with hysteresis and without opacity animation;
+- modal scroll lock no longer changes desktop scroll position and freezes topbar state while open;
+- 2K/ultrawide typography increased across secondary text, cards, forms and footer;
+- hero tag hover uses white background + dark text;
+- doctor/profile text-link icon and label share one hover color with smooth transform;
+- full Yandex Maps reviews iframe restored in the reviews section;
+- blog metadata icons changed to teal and action arrow follows text color;
+- footer logo is white via CSS filter while keeping the source background transparent;
+- footer phone has a dedicated hover color.
 
-- trust-блок переведён с рейтинговых баллов на абстрактные показатели доверия: 2ГИС, Яндекс Карты, ПроДокторов;
-- официальный рейтинг-бейдж Яндекса перенесён в секцию отзывов;
-- topbar теперь содержит телефон, email `dizayndent@bk.ru` и icon-only ссылки VK/WhatsApp с tooltip;
-- на desktop телефон/email убраны из основного header; на mobile сохранены отдельные icon-only быстрые контакты;
-- topbar скрывается при прокрутке вниз и возвращается при прокрутке вверх;
-- в hero добавлен отдельный видеотриггер Fancybox; самостоятельная video-section удалена;
-- сервисный slider поддерживает drag мышью на fine-pointer устройствах;
-- усилена общая система плавных hover/focus-переходов;
-- анимация icon в «Профиль врача» сделана плавной;
-- блок «До / после» на desktop перестроен в case-study: интерактивное сравнение + задача / что сделали / результат;
-- ПроДокторов в отзывах показан через абстрактный счётчик 85+ без имитации live-рейтинга;
-- hover в FAQ сохраняет контраст иконки;
-- добавлен прозрачный `logo-footer.png`, белый фон логотипа в footer убран;
-- scroll-to-top получил плавное появление/исчезновение и остаётся справа;
-- адрес и режим работы в footer больше не получают pointer cursor;
-- email заменён во всех видимых местах на `dizayndent@bk.ru`.
-
-## Видео / Fancybox
-
-Подключён Fancybox 5 с CDN. Hero-триггер открывает inline modal. Внутри предусмотрен iframe карточки 2ГИС и прямая fallback-ссылка на ролик. Для production лучше получить исходный MP4/WebM клиники и заменить iframe на `<video>` - это даст предсказуемое воспроизведение без ограничений внешней площадки.
-
-## WordPress
-
-Архитектура по-прежнему рассчитана на перенос в `header.php`, `footer.php`, `front-page.php`, ACF и CPT. Абстрактные количества отзывов лучше вынести в опции ACF, чтобы администратор мог обновлять их без правки шаблона.
+`index.html` is at the archive root for GitHub Deployer.

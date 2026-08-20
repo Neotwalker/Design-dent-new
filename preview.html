@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -40,48 +41,52 @@
 
   <a class="skip-link" href="#main">Перейти к содержимому</a>
 
-  <div class="topbar">
-    <div class="container topbar__inner">
-      <span>Челябинск, ул. Кирова, 13А</span>
-      <span>Ежедневно 10:00-20:00</span>
-      <nav class="topbar__contacts" aria-label="Быстрые контакты">
-        <a href="https://vk.ru/dizayndent74" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-vk"/></svg><span>ВКонтакте</span></a>
-        <a href="#"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>WhatsApp</span></a>
-      </nav>
-    </div>
-  </div>
-
-  <header class="site-header" data-header>
-    <div class="container header__inner">
-      <a class="brand" href="#top" aria-label="Дизайн Дент - на главную">
-        <img src="assets/img/logo.png" alt="Дизайн Дент">
-      </a>
-
-      <nav class="desktop-nav" aria-label="Основная навигация">
-        <a href="#services">Услуги</a>
-        <a href="#doctors">Врачи</a>
-        <a href="#results">До / после</a>
-        <a href="#reviews">Отзывы</a>
-        <a href="#prices">Цены</a>
-        <a href="#blog">Блог</a>
-      </nav>
-
-      <div class="header__actions">
-        <div class="header__contacts">
-          <a href="tel:+73512704996" class="header-contact header-contact--phone" aria-label="Позвонить в Дизайн Дент">
-            <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><span>+7 (351) 270-49-96</span>
-          </a>
-          <a href="#" class="header-contact header-contact--mail" aria-label="Написать на электронную почту">
-            <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><span>Эл. почта</span>
-          </a>
+  <div class="site-chrome" data-site-chrome>
+    <div class="topbar" data-topbar>
+      <div class="container topbar__inner">
+        <div class="topbar__meta" aria-label="Адрес и режим работы">
+          <span><svg class="icon" aria-hidden="true"><use href="#i-location"/></svg>Челябинск, ул. Кирова, 13А</span>
+          <span><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Ежедневно 10:00-20:00</span>
         </div>
-        <button class="btn btn--gold btn--sm" type="button" data-open-lead data-source="header" data-form-name="Шапка - Записаться">Записаться</button>
-        <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
-          <span></span><span></span><span></span>
-        </button>
+        <nav class="topbar__contacts" aria-label="Контакты клиники">
+          <a href="tel:+73512704996" class="topbar__contact"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><span>+7 (351) 270-49-96</span></a>
+          <a href="mailto:dizayndent@bk.ru" class="topbar__contact"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><span>dizayndent@bk.ru</span></a>
+        </nav>
       </div>
     </div>
-  </header>
+
+    <header class="site-header" data-header>
+      <div class="container header__inner">
+        <a class="brand" href="#top" aria-label="Дизайн Дент - на главную">
+          <img src="assets/img/logo.png" alt="Дизайн Дент">
+        </a>
+
+        <nav class="desktop-nav" aria-label="Основная навигация">
+          <a href="#services">Услуги</a>
+          <a href="#doctors">Врачи</a>
+          <a href="#results">До / после</a>
+          <a href="#reviews">Отзывы</a>
+          <a href="#prices">Цены</a>
+          <a href="#blog">Блог</a>
+        </nav>
+
+        <div class="header__actions">
+          <nav class="header__socials" aria-label="Социальные сети">
+            <a href="https://vk.ru/dizayndent74" target="_blank" rel="noopener" aria-label="Дизайн Дент ВКонтакте" data-tooltip="ВКонтакте"><svg class="icon" aria-hidden="true"><use href="#i-vk"/></svg></a>
+            <a href="#" aria-label="Дизайн Дент в WhatsApp" data-tooltip="WhatsApp"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
+          </nav>
+          <div class="header__mobile-contacts" aria-label="Быстрые контакты">
+            <a href="tel:+73512704996" aria-label="Позвонить в Дизайн Дент"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></a>
+            <a href="mailto:dizayndent@bk.ru" aria-label="Написать в Дизайн Дент"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></a>
+          </div>
+          <button class="btn btn--gold btn--sm" type="button" data-open-lead data-source="header" data-form-name="Шапка - Записаться">Записаться</button>
+          <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+  </div>
 
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true" data-mobile-menu>
     <div class="mobile-menu__panel" role="dialog" aria-modal="true" aria-label="Меню сайта">
@@ -99,7 +104,7 @@
       </nav>
       <div class="mobile-menu__contacts">
         <a href="tel:+73512704996"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><span>+7 (351) 270-49-96</span></a>
-        <a href="#"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><span>Эл. почта</span></a>
+        <a href="mailto:dizayndent@bk.ru"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><span>dizayndent@bk.ru</span></a>
         <a href="https://vk.ru/dizayndent74" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-vk"/></svg><span>ВКонтакте</span></a>
         <a href="#"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>WhatsApp</span></a>
       </div>
@@ -125,6 +130,10 @@
               <a class="btn btn--glass" href="#services">Посмотреть услуги</a>
             </div>
           </div>
+          <a class="hero-video-trigger" href="https://2gis.ru/chelyabinsk/gallery/geo/2111590608205124/photoId/30258560223528320" data-fancybox="clinic-video" data-src="#clinic-video-modal" aria-label="Посмотреть видео о клинике">
+            <span class="hero-video-trigger__icon"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg></span>
+            <span class="hero-video-trigger__copy"><small>Видео о клинике</small><strong>Смотреть</strong></span>
+          </a>
 
           <div class="hero__tags" aria-label="Популярные услуги">
             <a href="#services">Лечение</a>
@@ -143,22 +152,16 @@
       </div>
     </section>
 
-    <section class="trust" aria-label="Рейтинги клиники">
+    <section class="trust" aria-label="Отзывы о клинике на независимых площадках">
       <div class="container trust__grid">
-        <a class="rating-card" href="https://2gis.ru/chelyabinsk/geo/2111590608205124" target="_blank" rel="noopener" data-live-rating="2gis">
-          <div><span class="rating-card__source">2ГИС</span><strong>4,9</strong></div>
-          <div class="rating-card__meta"><span class="stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span><span>202 оценки</span></div>
-          <span class="rating-card__icon"><svg class="icon"><use href="#i-arrow-up-right"/></svg></span>
+        <a class="trust-card" href="https://2gis.ru/chelyabinsk/search/%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%20%D0%B4%D0%B5%D0%BD%D1%82/firm/2111590608205124/61.400599%2C55.176466/tab/reviews" target="_blank" rel="noopener">
+          <span class="trust-card__source">2ГИС</span><strong>200+</strong><span class="trust-card__label">оценок и отзывов</span><span class="trust-card__icon"><svg class="icon"><use href="#i-arrow-up-right"/></svg></span>
         </a>
-        <div class="rating-card rating-card--yandex-widget" data-live-rating="yandex">
-          <div class="rating-card__widget-copy"><span class="rating-card__source">Яндекс Карты</span><strong>Рейтинг</strong><span>обновляется автоматически</span></div>
-          <iframe class="yandex-rating-badge" src="about:blank" width="150" height="50" frameborder="0" loading="lazy" title="Рейтинг Дизайн Дент на Яндекс Картах"></iframe>
-          <a class="rating-card__widget-link" href="https://yandex.ru/maps/org/dizayn_dent/1253824945" target="_blank" rel="noopener" aria-label="Открыть Дизайн Дент на Яндекс Картах"><svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-        </div>
-        <a class="rating-card rating-card--accent" href="https://prodoctorov.ru/chelyabinsk/lpu/32812-dizayn-dent/" target="_blank" rel="noopener" data-live-rating="prodoctorov">
-          <div><span class="rating-card__source">ПроДокторов</span><strong>72</strong></div>
-          <div class="rating-card__meta"><span>отзыва о клинике и врачах</span><span class="rating-card__link">Смотреть</span></div>
-          <span class="rating-card__icon"><svg class="icon"><use href="#i-arrow-up-right"/></svg></span>
+        <a class="trust-card" href="https://yandex.ru/maps/org/dizayn_dent/1253824945" target="_blank" rel="noopener">
+          <span class="trust-card__source">Яндекс Карты</span><strong>70+</strong><span class="trust-card__label">отзывов пациентов</span><span class="trust-card__icon"><svg class="icon"><use href="#i-arrow-up-right"/></svg></span>
+        </a>
+        <a class="trust-card trust-card--accent" href="https://prodoctorov.ru/chelyabinsk/lpu/32812-dizayn-dent/otzivi/" target="_blank" rel="noopener">
+          <span class="trust-card__source">ПроДокторов</span><strong>85+</strong><span class="trust-card__label">отзывов о клинике и врачах</span><span class="trust-card__icon"><svg class="icon"><use href="#i-arrow-up-right"/></svg></span>
         </a>
       </div>
     </section>
@@ -226,30 +229,31 @@
       </div>
     </section>
 
-    <section class="section video-section">
-      <div class="container">
-        <a class="video-card" href="https://2gis.ru/chelyabinsk/gallery/geo/2111590608205124/photoId/30258560223528320" target="_blank" rel="noopener">
-          <img src="assets/img/hero.webp" alt="Посмотреть видео о клинике Дизайн Дент" loading="lazy">
-          <div class="video-card__shade"></div>
-          <div class="video-card__content"><span class="eyebrow eyebrow--light">Клиника изнутри</span><h2>Загляните в<br>Дизайн Дент</h2><p>Короткое видео из карточки клиники в 2ГИС.</p><span class="video-card__cta">Смотреть видео <svg class="icon"><use href="#i-arrow"/></svg></span></div>
-          <span class="play-button" aria-hidden="true"><svg class="icon"><use href="#i-play"/></svg></span>
-        </a>
-      </div>
-    </section>
-
     <section class="section results" id="results">
       <div class="container">
         <div class="section-head section-head--results">
           <div><span class="eyebrow">До / после</span><h2>Результат можно<br>увидеть в деталях</h2></div>
-          <p>Профессиональная гигиена. Двигайте разделитель, чтобы сравнить состояние до и после процедуры.</p>
+          <p>Не обещаем одинаковый результат для всех пациентов - показываем конкретную работу и логику лечения.</p>
         </div>
-        <div class="before-after" data-before-after>
-          <div class="before-after__base"><img src="assets/img/case-before.webp" alt="До профессиональной гигиены: индикация зубного налёта" loading="lazy"><span class="before-after__label">До</span></div>
-          <div class="before-after__after" data-after-layer><img src="assets/img/case-after.webp" alt="После профессиональной гигиены" loading="lazy"><span class="before-after__label">После</span></div>
-          <div class="before-after__line" data-before-line><span><svg class="icon"><use href="#i-arrow-left"/></svg><svg class="icon"><use href="#i-arrow"/></svg></span></div>
-          <input class="before-after__range" type="range" min="5" max="95" value="50" aria-label="Сравнить фото до и после" data-before-range>
+        <div class="results-showcase">
+          <div class="before-after" data-before-after>
+            <div class="before-after__base"><img src="assets/img/case-before.webp" alt="До профессиональной гигиены: индикация зубного налёта" loading="lazy"><span class="before-after__label">До</span></div>
+            <div class="before-after__after" data-after-layer><img src="assets/img/case-after.webp" alt="После профессиональной гигиены" loading="lazy"><span class="before-after__label">После</span></div>
+            <div class="before-after__line" data-before-line><span><svg class="icon"><use href="#i-arrow-left"/></svg><svg class="icon"><use href="#i-arrow"/></svg></span></div>
+            <input class="before-after__range" type="range" min="5" max="95" value="50" aria-label="Сравнить фото до и после" data-before-range>
+          </div>
+          <article class="result-case">
+            <span class="result-case__number">Кейс 01</span>
+            <h3>Профессиональная гигиена</h3>
+            <p class="result-case__doctor">Врач - Юрате Монгирдайте</p>
+            <dl class="result-case__steps">
+              <div><dt>Задача</dt><dd>Убрать мягкий и пигментированный налёт, оценить зоны, которые требуют большего внимания при домашней гигиене.</dd></div>
+              <div><dt>Что сделали</dt><dd>Провели профессиональную гигиену полости рта и аккуратно очистили поверхности зубов.</dd></div>
+              <div><dt>Результат</dt><dd>Чистая поверхность эмали и наглядный ориентир для дальнейшего домашнего ухода.</dd></div>
+            </dl>
+            <button class="btn btn--teal result-case__cta" type="button" data-open-lead data-source="results" data-service="Профессиональная гигиена" data-form-name="До / после - Профессиональная гигиена">Записаться на гигиену</button>
+          </article>
         </div>
-        <div class="results__meta"><div><span>01</span><strong>Профессиональная гигиена</strong><small>врач Юрате Монгирдайте</small></div></div>
       </div>
     </section>
 
@@ -287,28 +291,23 @@
         <div class="reviews__intro">
           <span class="eyebrow">Отзывы пациентов</span>
           <h2 id="reviews-title">Отзывы с независимых<br>площадок</h2>
-          <p>Актуальные отзывы и оценки лучше проверять непосредственно в сервисах. Виджет Яндекса обновляется на стороне Яндекс Карт.</p>
-          <div class="reviews__badges">
-            <iframe class="yandex-rating-badge" src="about:blank" width="150" height="50" frameborder="0" loading="lazy" title="Рейтинг Дизайн Дент на Яндекс Картах"></iframe>
-          </div>
+          <p>Показываем независимые источники, где можно проверить впечатления пациентов и актуальные данные о клинике.</p>
+          <nav class="reviews__links reviews__links--intro" aria-label="Отзывы на внешних площадках">
+            <a href="https://2gis.ru/chelyabinsk/search/%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%20%D0%B4%D0%B5%D0%BD%D1%82/firm/2111590608205124/61.400599%2C55.176466/tab/reviews" target="_blank" rel="noopener">Отзывы в 2ГИС <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+            <a href="https://prodoctorov.ru/chelyabinsk/lpu/32812-dizayn-dent/otzivi/" target="_blank" rel="noopener">Отзывы на ПроДокторов <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+          </nav>
         </div>
         <div class="review-list review-list--widgets">
           <div class="yandex-reviews-widget">
-            <iframe src="about:blank" title="Отзывы о Дизайн Дент на Яндекс Картах" loading="lazy"></iframe>
+            <iframe src="https://yandex.ru/maps-reviews-widget/1253824945?comments" title="Отзывы о Дизайн Дент на Яндекс Картах" loading="lazy"></iframe>
           </div>
-          <article class="review-source-card">
+          <article class="review-source-card review-source-card--prodoctorov">
             <span class="review-card__source">ПроДокторов</span>
-            <h3>Отзывы о клинике и врачах</h3>
-            <p>Отзывы пациентов о клинике и специалистах на профильной медицинской площадке.</p>
-            <div class="review-source-card__stat"><strong>72</strong><span>отзыва о клинике и врачах</span></div>
-            <a class="text-link" href="https://prodoctorov.ru/chelyabinsk/lpu/32812-dizayn-dent/otzivi/" target="_blank" rel="noopener">Открыть ПроДокторов <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+            <div class="review-source-card__stat"><strong>85+</strong><span>отзывов о клинике и врачах</span></div>
+            <p>Профильная медицинская площадка с отзывами о клинике и специалистах.</p>
+            <a class="text-link" href="https://prodoctorov.ru/chelyabinsk/lpu/32812-dizayn-dent/otzivi/" target="_blank" rel="noopener">Открыть ПроДокторов <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
           </article>
         </div>
-        <nav class="reviews__links" aria-label="Отзывы на внешних площадках">
-          <a href="https://yandex.ru/maps/org/dizayn_dent/1253824945" target="_blank" rel="noopener">Отзывы на Яндексе <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-          <a href="https://2gis.ru/chelyabinsk/search/%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%20%D0%B4%D0%B5%D0%BD%D1%82/firm/2111590608205124/61.400599%2C55.176466/tab/reviews" target="_blank" rel="noopener">Отзывы в 2ГИС <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-          <a href="https://prodoctorov.ru/chelyabinsk/lpu/32812-dizayn-dent/otzivi/" target="_blank" rel="noopener">Отзывы на ПроДокторов <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-        </nav>
       </div>
     </section>
 
@@ -362,9 +361,9 @@
 
     <section class="section contacts">
       <div class="container contacts__grid">
-        <div class="contacts__info"><span class="eyebrow">Контакты</span><h2>Дизайн Дент<br>в Челябинске</h2><dl><div><dt>Адрес</dt><dd>ул. Кирова, 13А, 1 этаж</dd></div><div><dt>Режим работы</dt><dd>ежедневно, 10:00-20:00</dd></div><div><dt>Телефон</dt><dd><a href="tel:+73512704996">+7 (351) 270-49-96</a></dd></div><div><dt>Эл. почта</dt><dd><a href="#">уточняется</a></dd></div></dl><div class="contacts__links"><a href="https://yandex.ru/maps/org/dizayn_dent/1253824945" target="_blank" rel="noopener">Яндекс Карты <svg class="icon"><use href="#i-arrow-up-right"/></svg></a><a href="https://2gis.ru/chelyabinsk/geo/2111590608205124" target="_blank" rel="noopener">2ГИС <svg class="icon"><use href="#i-arrow-up-right"/></svg></a><a href="https://vk.ru/dizayndent74" target="_blank" rel="noopener">ВКонтакте <svg class="icon"><use href="#i-arrow-up-right"/></svg></a></div></div>
+        <div class="contacts__info"><span class="eyebrow">Контакты</span><h2>Дизайн Дент<br>в Челябинске</h2><dl><div><dt>Адрес</dt><dd>ул. Кирова, 13А, 1 этаж</dd></div><div><dt>Режим работы</dt><dd>ежедневно, 10:00-20:00</dd></div><div><dt>Телефон</dt><dd><a href="tel:+73512704996">+7 (351) 270-49-96</a></dd></div><div><dt>Эл. почта</dt><dd><a href="mailto:dizayndent@bk.ru">dizayndent@bk.ru</a></dd></div></dl><div class="contacts__links"><a href="https://yandex.ru/maps/org/dizayn_dent/1253824945" target="_blank" rel="noopener">Яндекс Карты <svg class="icon"><use href="#i-arrow-up-right"/></svg></a><a href="https://2gis.ru/chelyabinsk/geo/2111590608205124" target="_blank" rel="noopener">2ГИС <svg class="icon"><use href="#i-arrow-up-right"/></svg></a><a href="https://vk.ru/dizayndent74" target="_blank" rel="noopener">ВКонтакте <svg class="icon"><use href="#i-arrow-up-right"/></svg></a></div></div>
         <div class="contacts__map" data-map-shell>
-          <iframe title="Дизайн Дент на карте" loading="lazy" src="about:blank"></iframe>
+          <iframe title="Дизайн Дент на карте" loading="lazy" src="https://yandex.ru/map-widget/v1/?mode=search&text=%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%20%D0%94%D0%B5%D0%BD%D1%82%20%D0%A7%D0%B5%D0%BB%D1%8F%D0%B1%D0%B8%D0%BD%D1%81%D0%BA%20%D0%9A%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%2013%D0%90"></iframe>
           <button class="map-activate" type="button" data-map-activate><svg class="icon"><use href="#i-location"/></svg><span>Открыть интерактивную карту</span></button>
         </div>
       </div>
@@ -373,16 +372,22 @@
 
   <footer class="footer">
     <div class="container footer__top">
-      <div class="footer__brand"><img src="assets/img/logo.png" alt="Дизайн Дент"><p>Современная стоматология в Челябинске с вниманием к деталям и комфорту пациента.</p><div class="footer__socials" aria-label="Социальные сети"><a href="https://vk.ru/dizayndent74" target="_blank" rel="noopener" aria-label="Дизайн Дент ВКонтакте"><svg class="icon"><use href="#i-vk"/></svg></a><a href="#" aria-label="Дизайн Дент в WhatsApp"><svg class="icon"><use href="#i-whatsapp"/></svg></a><a href="#" aria-label="Дизайн Дент в Telegram"><svg class="icon"><use href="#i-telegram"/></svg></a></div></div>
+      <div class="footer__brand"><img src="assets/img/logo-footer.png" alt="Дизайн Дент"><p>Современная стоматология в Челябинске с вниманием к деталям и комфорту пациента.</p><div class="footer__socials" aria-label="Социальные сети"><a href="https://vk.ru/dizayndent74" target="_blank" rel="noopener" aria-label="Дизайн Дент ВКонтакте"><svg class="icon"><use href="#i-vk"/></svg></a><a href="#" aria-label="Дизайн Дент в WhatsApp"><svg class="icon"><use href="#i-whatsapp"/></svg></a><a href="#" aria-label="Дизайн Дент в Telegram"><svg class="icon"><use href="#i-telegram"/></svg></a></div></div>
       <div class="footer__links"><strong>Навигация</strong><a href="#services">Услуги</a><a href="#doctors">Врачи</a><a href="#reviews">Отзывы</a><a href="#prices">Цены</a><a href="#blog">Блог</a></div>
       <div class="footer__links"><strong>Пациентам</strong><button type="button" data-open-lead data-source="footer" data-form-name="Подвал - Записаться">Записаться</button><a href="#results">До / после</a><a href="https://prodoctorov.ru/chelyabinsk/lpu/32812-dizayn-dent/" target="_blank" rel="noopener">ПроДокторов</a><a href="https://2gis.ru/chelyabinsk/geo/2111590608205124" target="_blank" rel="noopener">2ГИС</a></div>
-      <div class="footer__contact"><strong>Контакты</strong><a class="footer__phone" href="tel:+73512704996">+7 (351) 270-49-96</a><a href="#">Эл. почта</a><span>ул. Кирова, 13А</span><span>Ежедневно 10:00-20:00</span><button class="btn btn--gold" type="button" data-open-lead data-source="footer_contacts" data-form-name="Подвал - CTA">Записаться на приём</button></div>
+      <div class="footer__contact"><strong>Контакты</strong><a class="footer__phone" href="tel:+73512704996">+7 (351) 270-49-96</a><a href="mailto:dizayndent@bk.ru">dizayndent@bk.ru</a><span>ул. Кирова, 13А</span><span>Ежедневно 10:00-20:00</span><button class="btn btn--gold" type="button" data-open-lead data-source="footer_contacts" data-form-name="Подвал - CTA">Записаться на приём</button></div>
     </div>
     <div class="container footer__legal"><a href="#">Политика конфиденциальности</a><a href="#">Согласие на обработку данных</a><a href="#">Правовая информация</a></div>
     <div class="container footer__bottom"><p>© 2018-2026 Дизайн Дент</p><p>Имеются противопоказания. Необходима консультация специалиста.</p></div>
   </footer>
 
   <button class="scroll-top" type="button" aria-label="Наверх" data-scroll-top><svg class="icon"><use href="#i-up"/></svg></button>
+
+  <div class="clinic-video-modal" id="clinic-video-modal" style="display:none">
+    <div class="clinic-video-modal__head"><span class="eyebrow">Клиника изнутри</span><h2>Видео о Дизайн Дент</h2><p>Ролик из карточки клиники в 2ГИС.</p></div>
+    <div class="clinic-video-modal__frame"><iframe src="https://2gis.ru/chelyabinsk/gallery/firm/2111590608205124/photoId/30258560223528320" title="Видео о клинике Дизайн Дент в 2ГИС" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+    <a class="btn btn--gold" href="https://2gis.ru/chelyabinsk/gallery/geo/2111590608205124/photoId/30258560223528320" target="_blank" rel="noopener">Открыть видео в 2ГИС</a>
+  </div>
 
   <div class="lead-modal" aria-hidden="true" data-lead-modal>
     <div class="lead-modal__backdrop" data-modal-backdrop></div>
@@ -401,6 +406,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>

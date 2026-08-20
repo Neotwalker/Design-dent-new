@@ -16,24 +16,61 @@
     });
   }
 
-  // Sticky chrome: on desktop/tablet the topbar collapses while scrolling down and returns on upward scroll.
+  // Sticky chrome: use hysteresis instead of reacting to every tiny scroll delta.
+  // This keeps the topbar stable and prevents modal scroll-lock from toggling it.
   const siteChrome = $('[data-site-chrome]');
   let lastChromeScrollY = window.scrollY;
   let chromeTicking = false;
-  const updateSiteChrome = () => {
-    if (!siteChrome) return;
-    const y = Math.max(0, window.scrollY);
-    siteChrome.classList.toggle('is-scrolled', y > 12);
-    if (matchMedia('(min-width: 921px)').matches) {
-      if (y < 40) siteChrome.classList.remove('is-topbar-hidden');
-      else if (y > lastChromeScrollY + 2) siteChrome.classList.add('is-topbar-hidden');
-      else if (y < lastChromeScrollY - 2) siteChrome.classList.remove('is-topbar-hidden');
-    } else {
-      siteChrome.classList.remove('is-topbar-hidden');
+  let chromeDownDistance = 0;
+  let chromeUpDistance = 0;
+  let chromeFrozen = false;
+
+  const setChromeFrozen = frozen => {
+    chromeFrozen = frozen;
+    siteChrome?.classList.toggle('is-chrome-frozen', frozen);
+    if (!frozen) {
+      lastChromeScrollY = window.scrollY;
+      chromeDownDistance = 0;
+      chromeUpDistance = 0;
     }
-    lastChromeScrollY = y;
-    chromeTicking = false;
   };
+
+  const updateSiteChrome = () => {
+    chromeTicking = false;
+    if (!siteChrome || chromeFrozen || body.classList.contains('modal-open') || body.classList.contains('menu-open')) return;
+    const y = Math.max(0, window.scrollY);
+    const delta = y - lastChromeScrollY;
+    siteChrome.classList.toggle('is-scrolled', y > 12);
+
+    if (!matchMedia('(min-width: 921px)').matches) {
+      siteChrome.classList.remove('is-topbar-hidden');
+      lastChromeScrollY = y;
+      return;
+    }
+
+    if (y < 64) {
+      siteChrome.classList.remove('is-topbar-hidden');
+      chromeDownDistance = 0;
+      chromeUpDistance = 0;
+    } else if (delta > 0) {
+      chromeDownDistance += delta;
+      chromeUpDistance = 0;
+      if (y > 120 && chromeDownDistance >= 24) {
+        siteChrome.classList.add('is-topbar-hidden');
+        chromeDownDistance = 0;
+      }
+    } else if (delta < 0) {
+      chromeUpDistance += -delta;
+      chromeDownDistance = 0;
+      if (chromeUpDistance >= 14) {
+        siteChrome.classList.remove('is-topbar-hidden');
+        chromeUpDistance = 0;
+      }
+    }
+
+    lastChromeScrollY = y;
+  };
+
   window.addEventListener('scroll', () => {
     if (chromeTicking) return;
     chromeTicking = true;
@@ -259,43 +296,58 @@
 
   const lockBody = () => {
     lockedScrollY = window.scrollY;
+    setChromeFrozen(true);
     const scrollbarWidth = Math.max(0, window.innerWidth - document.documentElement.clientWidth);
+    const coarsePointer = matchMedia('(pointer: coarse)').matches;
     bodyLockSnapshot = {
+      mode: coarsePointer ? 'fixed' : 'overflow',
       position: body.style.position,
       top: body.style.top,
       left: body.style.left,
       right: body.style.right,
       width: body.style.width,
+      overflow: body.style.overflow,
       paddingRight: body.style.paddingRight,
       boxSizing: body.style.boxSizing
     };
+
     body.style.boxSizing = 'border-box';
-    body.style.position = 'fixed';
-    body.style.top = `-${lockedScrollY}px`;
-    body.style.left = '0';
-    body.style.right = '0';
-    body.style.width = '100%';
     body.style.paddingRight = scrollbarWidth ? `${scrollbarWidth}px` : '';
+
+    if (coarsePointer) {
+      body.style.position = 'fixed';
+      body.style.top = `-${lockedScrollY}px`;
+      body.style.left = '0';
+      body.style.right = '0';
+      body.style.width = '100%';
+    } else {
+      body.style.overflow = 'hidden';
+    }
     body.classList.add('modal-open');
   };
 
   const unlockBody = () => {
-    body.classList.remove('modal-open');
     const snapshot = bodyLockSnapshot || {};
+    body.classList.remove('modal-open');
     body.style.position = snapshot.position || '';
     body.style.top = snapshot.top || '';
     body.style.left = snapshot.left || '';
     body.style.right = snapshot.right || '';
     body.style.width = snapshot.width || '';
+    body.style.overflow = snapshot.overflow || '';
     body.style.paddingRight = snapshot.paddingRight || '';
     body.style.boxSizing = snapshot.boxSizing || '';
 
-    const html = document.documentElement;
-    const previousScrollBehavior = html.style.scrollBehavior;
-    html.style.scrollBehavior = 'auto';
-    window.scrollTo({ top: lockedScrollY, left: 0, behavior: 'auto' });
-    requestAnimationFrame(() => { html.style.scrollBehavior = previousScrollBehavior; });
+    if (snapshot.mode === 'fixed') {
+      const html = document.documentElement;
+      const previousScrollBehavior = html.style.scrollBehavior;
+      html.style.scrollBehavior = 'auto';
+      window.scrollTo({ top: lockedScrollY, left: 0, behavior: 'auto' });
+      requestAnimationFrame(() => { html.style.scrollBehavior = previousScrollBehavior; });
+    }
+
     bodyLockSnapshot = null;
+    requestAnimationFrame(() => requestAnimationFrame(() => setChromeFrozen(false)));
   };
 
   const openLeadModal = trigger => {
