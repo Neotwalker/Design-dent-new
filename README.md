@@ -35,14 +35,13 @@ Every lead form already contains hidden analytics fields:
 CTA buttons open the shared modal instead of scrolling to the bottom form. The lower form remains available as a direct inline conversion point.
 
 ## Reviews and ratings
-The demo contains graceful fallback UI, not fake live synchronization.
+Current prototype behavior:
+- **Yandex rating** uses the official live rating badge iframe supplied for organization `1253824945`.
+- **Yandex reviews** use the official Maps reviews widget iframe and update on the Yandex side.
+- **ProDoctorov** currently uses a visual fallback card plus a direct source link; production should replace it with the official clinic widget code from the ProDoctorov account.
+- **2GIS** is linked directly. Rating/count can later be refreshed through Places API when an API key is available; text reviews are not scraped.
 
-Production integration points are marked in `index.html`:
-- **Yandex Maps**: insert the official clinic reviews/rating widget code.
-- **ProDoctorov**: insert the official widget code from the clinic account.
-- **2GIS rating/count**: can be refreshed through Places API when an API key is available. Text reviews are not scraped.
-
-After official widgets are inserted, their data updates according to the source service. The exact amount/layout of displayed reviews depends on the official widget capabilities and configuration.
+Important: an official iframe widget controls its own ordering. If production requires exactly the two newest reviews combined from several platforms in one custom Design Dent layout, that should be implemented server-side in WordPress via an approved reviews aggregator/API source. Do not scrape provider pages in front-end JavaScript.
 
 ## Map behavior
 On touch/coarse-pointer devices the embedded map has pointer interaction disabled by default so page scrolling is not captured. The visitor explicitly taps “Открыть интерактивную карту” to activate it.
@@ -67,12 +66,19 @@ VK, phone, Yandex Maps, 2GIS and ProDoctorov links are already connected.
 
 The ZIP is prepared so that `index.html` is in the archive root.
 
-## QA / responsive stages
 
-Stage 1 (current archive): desktop refinement for 1181px+ / 1280-1920px.
-- wider responsive container and stronger desktop typography;
-- four complete service cards per viewport without accidental clipping;
-- unified two-card doctors layout;
-- resized reviews, price, blog, FAQ, forms, contacts and footer;
-- development-only explanatory copy removed from the public interface;
-- tablet (768/1024) and mobile (<=620) are intentionally left for the next QA stages.
+## Desktop stage 2 changes
+- larger desktop header/navigation typography
+- removed duplicate phone from topbar
+- added VK and WhatsApp quick links
+- scrollbar compensation and instant scroll restoration for modal open/close
+- hover/focus states across site links and buttons
+- Yandex live rating/reviews widgets
+- 2GIS reviews link
+- preserved before/after clinical image height with `object-fit: contain`
+- vertically centered advantages rows
+- unified doctor CTA colors
+- added “Все цены” placeholder link
+- made the full blog card clickable
+- smoother FAQ reveal
+- semantic cleanup: ordered advantages list, single clickable blog area, labelled review navigation/iframes

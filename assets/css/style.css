@@ -187,9 +187,9 @@ em{font-style:normal;color:#d2a64c}
 /* Advantages */
 .advantages__title{margin-bottom:55px}
 .advantages__list{border-top:1px solid var(--line)}
-.advantages__list article{display:grid;grid-template-columns:110px 1fr;gap:30px;padding:28px 0;border-bottom:1px solid var(--line)}
-.advantages__list article>span{font-size:42px;color:var(--gold);line-height:1}
-.advantages__list article>div{display:grid;grid-template-columns:minmax(240px,.6fr) minmax(0,1fr);gap:50px;align-items:start}
+.advantages__list li{display:grid;grid-template-columns:110px 1fr;gap:30px;padding:28px 0;border-bottom:1px solid var(--line)}
+.advantages__list li>span{font-size:42px;color:var(--gold);line-height:1}
+.advantages__list li>div{display:grid;grid-template-columns:minmax(240px,.6fr) minmax(0,1fr);gap:50px;align-items:start}
 .advantages__list h3{margin:0}.advantages__list p{margin:0;color:var(--muted);font-size:13px;max-width:610px}
 
 /* Doctors */
@@ -250,8 +250,8 @@ em{font-style:normal;color:#d2a64c}
 .faq{background:#fff;border-radius:26px;padding:8px 24px}
 .faq__item{border-bottom:1px solid var(--line)}.faq__item:last-child{border-bottom:0}
 .faq__item button{width:100%;border:0;background:none;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;text-align:left;font-size:18px;font-weight:600;cursor:pointer}
-.faq__item i{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--teal-soft);color:var(--teal);font-style:normal;transition:transform .25s ease}.faq__item i .icon{width:17px;height:17px}
-.faq__item.is-open i{transform:rotate(45deg)}
+.faq__item .faq__icon{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--teal-soft);color:var(--teal);font-style:normal;transition:transform .25s ease}.faq__item .faq__icon .icon{width:17px;height:17px}
+.faq__item.is-open .faq__icon{transform:rotate(45deg)}
 .faq__answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}.faq__answer>p{overflow:hidden;margin:0;color:var(--muted);font-size:12px;line-height:1.7}.faq__item.is-open .faq__answer{grid-template-rows:1fr}.faq__item.is-open .faq__answer>p{padding-bottom:22px}
 
 /* Forms */
@@ -413,9 +413,9 @@ em{font-style:normal;color:#d2a64c}
 
   /* advantages */
   .advantages__title{margin-bottom:62px}
-  .advantages__list article{grid-template-columns:90px 1fr;gap:34px;padding:34px 0}
-  .advantages__list article>span{font-size:44px}
-  .advantages__list article>div{grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr);gap:72px}
+  .advantages__list li{grid-template-columns:90px 1fr;gap:34px;padding:34px 0}
+  .advantages__list li>span{font-size:44px}
+  .advantages__list li>div{grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr);gap:72px}
   .advantages__list h3{font-size:27px}
   .advantages__list p{font-size:15px;line-height:1.75;max-width:720px}
 
@@ -524,7 +524,7 @@ em{font-style:normal;color:#d2a64c}
   .founder__grid{grid-template-columns:1fr}.founder__image-wrap{min-height:600px}.founder__facts{grid-template-columns:repeat(3,1fr)}
   .video-card{min-height:520px}.video-card__content{left:32px;bottom:32px}.video-card__content h2{font-size:54px}.play-button{right:32px;width:76px;height:76px}
   .before-after{height:72vw;min-height:500px}
-  .advantages__list article{grid-template-columns:80px 1fr}.advantages__list article>div{grid-template-columns:1fr;gap:10px}
+  .advantages__list li{grid-template-columns:80px 1fr}.advantages__list li>div{grid-template-columns:1fr;gap:10px}
   .doctors__grid{grid-template-columns:1fr}.doctor-card--wide{grid-template-columns:1fr;grid-template-rows:470px auto}.doctor-card{grid-template-rows:470px auto}.doctor-card h3{font-size:38px}
   .reviews__container,.price-preview__grid,.faq-section__grid,.contacts__grid{grid-template-columns:1fr;gap:46px}.reviews__links{grid-column:1}
   .blog-grid{grid-template-columns:1fr 1fr}.blog-card:last-child{grid-column:1/-1}
@@ -543,12 +543,12 @@ em{font-style:normal;color:#d2a64c}
   .service-track{grid-auto-columns:calc(100vw - 24px);margin-inline:calc((100vw - 100%)/-2);padding-inline:max(12px,calc((100vw - 100%)/2));scroll-padding-inline:max(12px,calc((100vw - 100%)/2))}.services__controls{align-items:flex-start}.services__controls p{max-width:65%}
   .founder__image-wrap{min-height:470px}.founder__badge{left:12px;bottom:12px}.founder__content .lead{font-size:15px}.founder__facts{grid-template-columns:1fr}.founder__actions{align-items:flex-start;flex-direction:column}.video-card{min-height:470px}.video-card__content{left:24px;right:24px;bottom:26px}.video-card__content h2{font-size:42px}.play-button{top:26%;right:22px;width:68px;height:68px}
   .before-after{height:104vw;min-height:390px;border-radius:22px}.before-after__label{top:14px;left:14px}.before-after__after .before-after__label{right:14px}.before-after__line span{width:52px;height:52px}.results__meta{display:block}.results__meta p{text-align:left;margin-top:14px}.results__meta>div span{font-size:24px}
-  .advantages__list article{grid-template-columns:54px 1fr;gap:12px}.advantages__list article>span{font-size:32px}.advantages__list h3{font-size:22px}
+  .advantages__list li{grid-template-columns:54px 1fr;gap:12px}.advantages__list li>span{font-size:32px}.advantages__list h3{font-size:22px}
   .doctor-card--wide,.doctor-card{grid-template-rows:350px auto}.doctor-card__body{padding:22px}.doctor-card h3{font-size:31px}.doctor-card__tags{gap:6px;margin-bottom:18px}.doctor-card__image-tag{left:12px;bottom:12px;font-size:8px}.doctor-card__foot{align-items:flex-end}.doctor-book span{display:none}.doctor-book{width:40px;height:40px;border-radius:50%;background:var(--teal-soft);justify-content:center}.doctor-book .icon{margin:0}
   .review-card p{font-size:13px}.reviews__links{flex-direction:column;gap:10px}
   .price-list div{align-items:flex-start;flex-direction:column;gap:6px}.price-list strong{font-size:17px}
   .blog-grid{grid-template-columns:1fr}.blog-card:last-child{grid-column:auto}.blog-card{min-height:340px}.blog-card__meta{gap:9px}
-  .faq{padding:6px 18px}.faq__item button{font-size:15px}.faq__item i{width:30px;height:30px}
+  .faq{padding:6px 18px}.faq__item button{font-size:15px}.faq__item .faq__icon{width:30px;height:30px}
   .appointment__card{padding:20px;border-radius:22px}.appointment__contacts a{font-size:22px}.lead-form{grid-template-columns:1fr;padding:18px}.appointment__select,.checkbox,.lead-form .btn,.form-note,.form-success{grid-column:auto}
   .contacts__info dl div{grid-template-columns:105px 1fr}.contacts__map,.contacts__map iframe{min-height:390px}
   .footer{padding-top:50px}.footer__top{grid-template-columns:1fr 1fr;gap:36px 22px}.footer__brand{grid-column:1/-1}.footer__contact{grid-column:1/-1;padding-top:24px;border-top:1px solid rgba(255,255,255,.11)}.footer__contact .btn{width:100%}.footer__legal{margin-top:38px;gap:12px}.footer__bottom{font-size:8px}.footer__socials a{width:40px;height:40px}
@@ -556,3 +556,179 @@ em{font-style:normal;color:#d2a64c}
   .lead-modal{padding:10px max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}.lead-modal__dialog{max-height:calc(100dvh - 20px);border-radius:22px;padding:20px}.lead-modal__copy{padding-right:45px;margin-bottom:18px}.lead-modal__copy h2{font-size:36px}.lead-modal__close{right:12px;top:12px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+
+/* Desktop refinement - stage 2: interaction, header, live widgets, semantics */
+.advantages__list{list-style:none;margin:0;padding:0}
+
+/* Shared interactive states */
+.brand,.desktop-nav a,.header-contact,.header__socials a,.topbar__contacts a,
+.hero__tags a,.hero__founder,.rating-card,.rating-card__widget-link,.mini-link,.text-link,
+.video-card,.play-button,.doctor-book,.reviews__links a,.review-tabs button,.blog-card__click,
+.faq__item button,.contacts__links a,.footer__links a,.footer__links button,.footer__contact a,
+.footer__socials a,.scroll-top,.icon-button,.menu-toggle,.mobile-menu__nav a,.mobile-menu__contacts a{
+  transition:color .22s ease,background-color .22s ease,border-color .22s ease,opacity .22s ease,transform .22s ease,box-shadow .22s ease;
+}
+.brand:hover{opacity:.76}
+.text-link:hover,.contacts__links a:hover,.reviews__links a:hover{color:var(--gold-dark)}
+.text-link:hover .icon,.contacts__links a:hover .icon,.reviews__links a:hover .icon{transform:translate(2px,-2px)}
+.mini-link:hover{background:var(--teal);color:#fff;border-color:var(--teal);transform:translateY(-2px)}
+.icon-button:hover,.scroll-top:hover{border-color:rgba(47,111,115,.45);background:var(--teal-soft);transform:translateY(-2px)}
+.menu-toggle:hover{background:var(--teal-soft)}
+
+/* Header social/contact refinements */
+.topbar__contacts a{display:inline-flex;align-items:center;gap:7px}
+.topbar__contacts .icon{width:15px;height:15px;color:#d9e5e4}
+.header__socials{display:flex;align-items:center;gap:7px}
+.header__socials a{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--teal);background:#fff}
+.header__socials a:hover{background:var(--teal);border-color:var(--teal);color:#fff;transform:translateY(-2px)}
+.header__socials .icon{width:18px;height:18px}
+.header-contact:hover{color:var(--teal)}
+
+/* Mobile drawer contact links are intentionally simple, not cards */
+.mobile-menu__contacts{display:flex;flex-direction:column;gap:13px;margin-bottom:22px}
+.mobile-menu__contacts a{min-height:auto;border:0;border-radius:0;padding:0;display:inline-flex;align-items:center;gap:10px;font-size:13px;color:var(--text)}
+.mobile-menu__contacts a:hover{color:var(--teal);transform:translateX(3px)}
+.mobile-menu__contacts .icon{width:19px;height:19px;color:var(--gold)}
+
+/* Hero interactions */
+.hero__tags a{transition:background-color .22s ease,border-color .22s ease,color .22s ease,transform .22s ease}
+.hero__tags a:hover{background:rgba(255,255,255,.96);border-color:#fff;color:var(--teal-deep);transform:translateY(-2px)}
+.hero__founder:hover{transform:translateY(-4px);box-shadow:0 20px 44px rgba(0,0,0,.22)}
+.hero__founder:hover .arrow-circle{background:var(--teal);color:#fff}
+.arrow-circle{transition:background-color .22s ease,color .22s ease,transform .22s ease}
+.hero__founder:hover .arrow-circle{transform:translateY(-50%) rotate(4deg)}
+
+/* Yandex live rating badge */
+.rating-card--yandex-widget{align-items:center;cursor:default}
+.rating-card__widget-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
+.rating-card__widget-copy strong{font-size:22px;letter-spacing:-.03em}
+.rating-card__widget-copy>span:last-child{font-size:10px;color:var(--muted)}
+.yandex-rating-badge{display:block;border:0;flex:0 0 150px;color-scheme:auto}
+.rating-card__widget-link{position:absolute;right:16px;top:16px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#f2f5f3;color:var(--teal)}
+.rating-card__widget-link:hover{background:var(--teal);color:#fff;transform:translate(1px,-1px)}
+.rating-card__widget-link .icon{width:15px;height:15px}
+
+/* Video hover */
+.video-card:hover{box-shadow:0 24px 58px rgba(20,37,38,.18)}
+.video-card>img{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.video-card:hover>img{transform:scale(1.025)}
+.play-button{transition:transform .24s ease,background-color .24s ease,box-shadow .24s ease}
+.video-card:hover .play-button,.play-button:hover{transform:translateY(-50%) scale(1.08);background:var(--gold-dark);box-shadow:0 20px 45px rgba(0,0,0,.28)}
+.video-card__cta .icon{transition:transform .22s ease}
+.video-card:hover .video-card__cta .icon{transform:translateX(4px)}
+
+/* Before/after: preserve full vertical clinical frame instead of cropping it */
+.before-after__base,.before-after__after{background:#ece9e2}
+.before-after__base img,.before-after__after img{object-fit:contain;background:#ece9e2}
+
+/* Advantages vertical rhythm */
+.advantages__list li{align-items:center}
+.advantages__list li>div{align-items:center}
+
+/* Doctor action uses one color system */
+.doctor-book{color:var(--teal)}
+.doctor-book .icon{color:currentColor;transition:transform .22s ease}
+.doctor-book:hover{color:var(--gold-dark)}
+.doctor-book:hover .icon{transform:translateX(4px)}
+
+/* Reviews: official Yandex widget + source card */
+.reviews__badges{margin-top:28px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.review-list--widgets{display:grid;grid-template-columns:minmax(300px,1fr) minmax(300px,1fr);gap:16px;align-items:stretch}
+.yandex-reviews-widget{min-height:560px;border-radius:24px;overflow:hidden;background:#fff;border:1px solid rgba(47,111,115,.12);box-shadow:0 12px 32px rgba(20,37,38,.06)}
+.yandex-reviews-widget iframe{display:block;width:100%;height:560px;border:0}
+.review-source-card{min-height:560px;background:#fff;border:1px solid rgba(47,111,115,.12);border-radius:24px;padding:30px;display:flex;flex-direction:column;align-items:flex-start}
+.review-source-card h3{font-size:30px;margin:22px 0 16px}
+.review-source-card p{font-size:15px;line-height:1.75;color:var(--muted);max-width:430px}
+.review-source-card .text-link{margin-top:auto}
+.reviews__links{align-items:center}
+
+/* Prices */
+.price-preview__actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn--outline-teal{border:1px solid rgba(47,111,115,.45);background:transparent;color:var(--teal)}
+.btn--outline-teal:hover{border-color:var(--teal);background:var(--teal-soft);color:var(--teal-dark)}
+
+/* Blog: one semantic clickable area per card */
+.blog-card{padding:0;overflow:hidden;transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease}
+.blog-card__click{display:flex;flex-direction:column;min-height:inherit;padding:28px;height:100%;outline:none}
+.blog-card:hover,.blog-card:focus-within{border-color:rgba(47,111,115,.42);box-shadow:0 18px 42px rgba(20,37,38,.10);transform:translateY(-4px)}
+.blog-card__click:focus-visible{box-shadow:inset 0 0 0 3px rgba(47,111,115,.24)}
+.blog-card__link{margin-top:18px}
+.blog-card__link .icon{transition:transform .22s ease}
+.blog-card:hover .blog-card__link .icon{transform:translateX(4px)}
+
+/* FAQ: keep text/padding in the animated flow so it does not pop in */
+.faq__answer{display:grid;grid-template-rows:0fr;opacity:.5;transition:grid-template-rows .34s cubic-bezier(.2,.7,.2,1),opacity .24s ease}
+.faq__answer>p{min-height:0;overflow:hidden;padding-bottom:0;opacity:0;transform:translateY(-5px);transition:opacity .22s ease,transform .32s ease,padding-bottom .32s ease}
+.faq__item.is-open .faq__answer{grid-template-rows:1fr;opacity:1}
+.faq__item.is-open .faq__answer>p{padding-bottom:22px;opacity:1;transform:none}
+.faq__item button:hover{color:var(--teal)}
+.faq__item button:hover .faq__icon{background:var(--teal);color:#fff}
+
+/* Form UI */
+.lead-form select{appearance:none;-webkit-appearance:none;padding-right:46px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%232f6f73' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;background-size:18px}
+.checkbox{align-items:center}
+.checkbox__text{padding-top:0}
+
+/* Modal scrollbar compensation is applied via JS variable/inline styles. */
+body.modal-open{overscroll-behavior:none}
+
+@media (hover:none){
+  .btn:hover,.hero__tags a:hover,.hero__founder:hover,.video-card:hover,.blog-card:hover,.mini-link:hover,.scroll-top:hover{transform:none}
+  .video-card:hover>img{transform:none}
+  .video-card:hover .play-button{transform:translateY(-50%)}
+}
+
+@media (min-width:1181px){
+  /* Header text must remain readable on 2K/4K screens */
+  :root{--header-h:96px}
+  .topbar{font-size:13px}
+  .topbar__inner{height:42px;gap:38px}
+  .topbar__contacts{gap:22px}
+  .topbar__contacts a{font-size:13px}
+  .topbar__contacts .icon{width:16px;height:16px}
+  .header__inner{height:var(--header-h);gap:28px}
+  .brand{width:190px}
+  .brand img{height:68px}
+  .desktop-nav{gap:28px}
+  .desktop-nav a{font-size:15px;font-weight:500}
+  .header__actions{gap:13px}
+  .header__contacts{gap:5px}
+  .header-contact{font-size:13px}
+  .header-contact:first-child,.header-contact--phone{font-size:15px}
+  .header-contact .icon{width:17px;height:17px}
+  .header__socials a{width:40px;height:40px}
+  .btn--sm{font-size:14px}
+
+  .hero__tags a{font-size:13px}
+  .hero__founder-label{font-size:12px}
+  .hero__founder strong{font-size:18px}
+
+  .rating-card--yandex-widget{padding-right:56px}
+  .rating-card__widget-copy>span:last-child{font-size:11px}
+  .rating-card__widget-link{right:18px;top:18px;width:34px;height:34px}
+
+  .before-after{height:min(62vw,900px);min-height:720px}
+
+  .advantages__list li{grid-template-columns:90px 1fr;gap:34px;padding:34px 0}
+  .advantages__list li>span{font-size:44px}
+  .advantages__list li>div{grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr);gap:72px}
+
+  .doctor-book{font-size:14px}
+
+  .reviews__container{grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:72px}
+  .review-list--widgets{gap:18px}
+  .reviews__links{grid-column:2;gap:22px}
+
+  .blog-card__click{padding:30px}
+}
+
+@media (max-width:1180px){
+  .header__socials{display:none}
+  .review-list--widgets{grid-template-columns:1fr}
+  .yandex-reviews-widget,.review-source-card{min-height:520px}
+  .yandex-reviews-widget iframe{height:520px}
+}
+.review-source-card__stat{margin:24px 0;display:flex;align-items:flex-end;gap:12px}
+.review-source-card__stat strong{font-size:52px;line-height:.9;letter-spacing:-.05em}
+.review-source-card__stat span{max-width:170px;color:var(--muted);font-size:12px;line-height:1.45}

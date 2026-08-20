@@ -178,24 +178,47 @@
   let lastFocused = null;
   let lockedScrollY = 0;
 
+  let bodyLockSnapshot = null;
+
   const lockBody = () => {
     lockedScrollY = window.scrollY;
+    const scrollbarWidth = Math.max(0, window.innerWidth - document.documentElement.clientWidth);
+    bodyLockSnapshot = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      paddingRight: body.style.paddingRight,
+      boxSizing: body.style.boxSizing
+    };
+    body.style.boxSizing = 'border-box';
     body.style.position = 'fixed';
     body.style.top = `-${lockedScrollY}px`;
     body.style.left = '0';
     body.style.right = '0';
     body.style.width = '100%';
+    body.style.paddingRight = scrollbarWidth ? `${scrollbarWidth}px` : '';
     body.classList.add('modal-open');
   };
 
   const unlockBody = () => {
     body.classList.remove('modal-open');
-    body.style.position = '';
-    body.style.top = '';
-    body.style.left = '';
-    body.style.right = '';
-    body.style.width = '';
-    window.scrollTo(0, lockedScrollY);
+    const snapshot = bodyLockSnapshot || {};
+    body.style.position = snapshot.position || '';
+    body.style.top = snapshot.top || '';
+    body.style.left = snapshot.left || '';
+    body.style.right = snapshot.right || '';
+    body.style.width = snapshot.width || '';
+    body.style.paddingRight = snapshot.paddingRight || '';
+    body.style.boxSizing = snapshot.boxSizing || '';
+
+    const html = document.documentElement;
+    const previousScrollBehavior = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+    window.scrollTo({ top: lockedScrollY, left: 0, behavior: 'auto' });
+    requestAnimationFrame(() => { html.style.scrollBehavior = previousScrollBehavior; });
+    bodyLockSnapshot = null;
   };
 
   const openLeadModal = trigger => {
@@ -230,7 +253,7 @@
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     unlockBody();
-    if (lastFocused instanceof HTMLElement) lastFocused.focus();
+    if (lastFocused instanceof HTMLElement) lastFocused.focus({ preventScroll: true });
   };
 
   $$('[data-open-lead]').forEach(trigger => trigger.addEventListener('click', () => openLeadModal(trigger)));
