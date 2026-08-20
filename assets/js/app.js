@@ -83,13 +83,53 @@
   const menuToggle = $('[data-menu-toggle]');
   const menuClose = $('[data-menu-close]');
 
+  let menuScrollY = 0;
+  let menuBodySnapshot = null;
+
+  const lockMenuBody = () => {
+    menuScrollY = window.scrollY;
+    menuBodySnapshot = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      overflow: body.style.overflow
+    };
+    body.style.position = 'fixed';
+    body.style.top = `-${menuScrollY}px`;
+    body.style.left = '0';
+    body.style.right = '0';
+    body.style.width = '100%';
+    body.style.overflow = 'hidden';
+  };
+
+  const unlockMenuBody = () => {
+    if (!menuBodySnapshot) return;
+    const snapshot = menuBodySnapshot;
+    body.style.position = snapshot.position || '';
+    body.style.top = snapshot.top || '';
+    body.style.left = snapshot.left || '';
+    body.style.right = snapshot.right || '';
+    body.style.width = snapshot.width || '';
+    body.style.overflow = snapshot.overflow || '';
+
+    const html = document.documentElement;
+    const previousBehavior = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+    window.scrollTo({ top: menuScrollY, left: 0, behavior: 'auto' });
+    requestAnimationFrame(() => { html.style.scrollBehavior = previousBehavior; });
+    menuBodySnapshot = null;
+  };
+
   const openMenu = () => {
     if (!menu || !menuToggle) return;
+    lockMenuBody();
     menu.classList.add('is-open');
     menu.setAttribute('aria-hidden', 'false');
     menuToggle.setAttribute('aria-expanded', 'true');
     body.classList.add('menu-open');
-    menuClose?.focus();
+    requestAnimationFrame(() => menuClose?.focus({ preventScroll: true }));
   };
 
   const closeMenu = (returnFocus = true) => {
@@ -98,7 +138,8 @@
     menu.setAttribute('aria-hidden', 'true');
     menuToggle.setAttribute('aria-expanded', 'false');
     body.classList.remove('menu-open');
-    if (returnFocus) menuToggle.focus();
+    unlockMenuBody();
+    if (returnFocus) requestAnimationFrame(() => menuToggle.focus({ preventScroll: true }));
   };
 
   menuToggle?.addEventListener('click', openMenu);

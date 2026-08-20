@@ -2392,3 +2392,181 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
     bottom:max(12px,env(safe-area-inset-bottom)) !important;
   }
 }
+
+
+/* ===== Stage 18: mobile/tablet rails, modal scale motion, menu scroll stability ===== */
+
+/* Modal stays mounted, but the whole layer lives behind the page while inactive.
+   The dialog scales in/out instead of travelling up from below the viewport. */
+.lead-modal{
+  display:grid !important;
+  z-index:-1;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:none !important;
+  transition:
+    opacity .24s ease,
+    visibility 0s linear .3s,
+    z-index 0s linear .3s !important;
+}
+.lead-modal[aria-hidden="true"]{
+  display:grid !important;
+  z-index:-1;
+}
+.lead-modal.is-open{
+  z-index:200;
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:none !important;
+  transition:
+    opacity .24s ease,
+    visibility 0s linear 0s,
+    z-index 0s linear 0s !important;
+}
+.lead-modal__backdrop{
+  opacity:0;
+  transition:opacity .28s ease;
+}
+.lead-modal.is-open .lead-modal__backdrop{
+  opacity:1;
+}
+.lead-modal__dialog{
+  transform:scale(0) !important;
+  transform-origin:center center;
+  opacity:0;
+  transition:
+    transform .34s cubic-bezier(.22,.8,.24,1),
+    opacity .22s ease !important;
+}
+.lead-modal.is-open .lead-modal__dialog{
+  transform:scale(1) !important;
+  opacity:1;
+}
+
+/* Cookie consent also remains mounted, but is parked below the viewport. */
+.cookie-banner,
+.cookie-banner[aria-hidden="true"]{
+  display:grid !important;
+  bottom:-100% !important;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:none !important;
+}
+.cookie-banner.is-visible{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+/* Blog rail: tablet shows two cards plus a small preview of the next one. */
+@media (min-width:621px) and (max-width:920px){
+  .blog-grid{
+    grid-auto-columns:calc((100vw - 84px) / 2) !important;
+  }
+}
+
+/* Phone rails: a meaningful peek of the next card without cutting the active card. */
+@media (max-width:620px){
+  .blog-grid,
+  .doctors__grid{
+    grid-auto-columns:calc(100vw - 64px) !important;
+    gap:12px;
+  }
+
+  .doctor-card,
+  .doctor-card--wide{
+    grid-template-rows:250px auto !important;
+  }
+  .doctor-card__body{
+    padding:20px;
+  }
+  .doctor-book{
+    width:auto !important;
+    height:auto !important;
+    min-height:40px;
+    border-radius:0 !important;
+    background:transparent !important;
+    padding:0 !important;
+    gap:8px;
+  }
+  .doctor-book span{
+    display:inline !important;
+    font-size:13px;
+  }
+  .doctor-book .icon{
+    width:18px;
+    height:18px;
+  }
+}
+
+/* Documents: two cards in the viewport on phones and small tablets, same rail logic as blog. */
+@media (max-width:920px){
+  .credentials__carousel{
+    width:auto;
+    margin-inline:calc((100vw - 100%) / -2);
+    overflow:visible;
+  }
+  .credentials__gallery{
+    grid-auto-columns:calc((100vw - 60px) / 2) !important;
+    gap:12px !important;
+    padding:8px max(18px,calc((100vw - 100%) / 2)) 16px !important;
+    scroll-padding-inline:max(18px,calc((100vw - 100%) / 2)) !important;
+    scrollbar-width:none !important;
+    overflow-x:auto;
+  }
+  .credentials__gallery::-webkit-scrollbar{
+    display:none !important;
+  }
+  .document-card__preview{
+    aspect-ratio:3/4 !important;
+  }
+  .document-card:last-child{
+    grid-column:auto !important;
+  }
+}
+
+/* Hero video: move it away from the heading on phones and gently invite interaction. */
+@media (max-width:620px){
+  .hero-video-trigger{
+    top:22px !important;
+    right:16px !important;
+    transform:none !important;
+    padding:5px !important;
+  }
+  .hero-video-trigger__icon{
+    width:48px !important;
+    height:48px !important;
+    position:relative;
+  }
+  .hero-video-trigger__icon::after{
+    content:"";
+    position:absolute;
+    inset:-7px;
+    border:1px solid rgba(213,166,74,.55);
+    border-radius:50%;
+    opacity:0;
+    transform:scale(.88);
+    animation:hero-video-pulse 2.8s ease-out infinite;
+    pointer-events:none;
+  }
+  .hero-video-trigger__icon .icon{
+    width:22px;
+    height:22px;
+  }
+}
+
+@keyframes hero-video-pulse{
+  0%,52%{opacity:0;transform:scale(.88)}
+  62%{opacity:.75}
+  100%{opacity:0;transform:scale(1.38)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .hero-video-trigger__icon::after{animation:none}
+  .lead-modal,
+  .lead-modal__backdrop,
+  .lead-modal__dialog{transition-duration:.01ms !important}
+}
