@@ -116,8 +116,11 @@
     const amount = card ? card.getBoundingClientRect().width + 14 : 320;
     serviceTrack.scrollBy({ left: amount * direction, behavior: 'smooth' });
   };
-  $('[data-service-prev]')?.addEventListener('click', () => scrollServices(-1));
-  $('[data-service-next]')?.addEventListener('click', () => scrollServices(1));
+  const servicePrevButton = $('[data-service-prev]');
+  const serviceNextButton = $('[data-service-next]');
+  const serviceButtonsWrap = servicePrevButton?.closest('.slider-buttons');
+  servicePrevButton?.addEventListener('click', () => scrollServices(-1));
+  serviceNextButton?.addEventListener('click', () => scrollServices(1));
 
   const serviceCards = $$('.service-card', serviceTrack || document);
 
@@ -131,6 +134,7 @@
 
     serviceTrack.addEventListener('pointerdown', event => {
       if (event.button !== 0) return;
+      if (event.target.closest('a,button')) return;
       dragging = true;
       dragged = false;
       startX = event.clientX;
@@ -170,7 +174,11 @@
 
     card.addEventListener('click', event => {
       if (event.target.closest('a,button,input,select,textarea,label')) return;
-      targetLink.click();
+      if (targetLink.getAttribute('href') && targetLink.getAttribute('href') !== '#') {
+        window.location.href = targetLink.href;
+      } else {
+        targetLink.click();
+      }
     });
 
     card.addEventListener('keydown', event => {
@@ -191,8 +199,28 @@
     const amount = card ? card.getBoundingClientRect().width + gap : 320;
     credentialsTrack.scrollBy({ left: amount * direction, behavior: 'smooth' });
   };
-  $('[data-credentials-prev]')?.addEventListener('click', () => scrollCredentials(-1));
-  $('[data-credentials-next]')?.addEventListener('click', () => scrollCredentials(1));
+  const credentialsPrevButton = $('[data-credentials-prev]');
+  const credentialsNextButton = $('[data-credentials-next]');
+  const credentialsButtonsWrap = credentialsPrevButton?.closest('.slider-buttons');
+  credentialsPrevButton?.addEventListener('click', () => scrollCredentials(-1));
+  credentialsNextButton?.addEventListener('click', () => scrollCredentials(1));
+
+  const syncSliderControls = () => {
+    const toggleWrap = (track, wrap) => {
+      if (!track || !wrap) return;
+      const hasOverflow = track.scrollWidth - track.clientWidth > 8;
+      wrap.hidden = !hasOverflow;
+    };
+    toggleWrap(serviceTrack, serviceButtonsWrap);
+    toggleWrap(credentialsTrack, credentialsButtonsWrap);
+  };
+
+  syncSliderControls();
+  window.addEventListener('resize', syncSliderControls);
+  if (window.ResizeObserver) {
+    if (serviceTrack && serviceButtonsWrap) new ResizeObserver(syncSliderControls).observe(serviceTrack);
+    if (credentialsTrack && credentialsButtonsWrap) new ResizeObserver(syncSliderControls).observe(credentialsTrack);
+  }
 
   // Before / after
   const beforeRange = $('[data-before-range]');
