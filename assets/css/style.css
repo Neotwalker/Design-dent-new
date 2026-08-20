@@ -2903,3 +2903,82 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
     object-position:center center !important;
   }
 }
+
+
+/* ===== Stage 24: restore hero photo + unified mobile header icons ===== */
+
+/* Tablet/mobile header actions use one visual system:
+   equal tap targets, black glyphs and matching icon scale. */
+@media (max-width:1180px){
+  .header__actions{
+    align-items:center;
+  }
+
+  .header-contact,
+  .menu-toggle{
+    width:46px !important;
+    height:46px !important;
+    flex:0 0 46px;
+    border-radius:50%;
+    background:#fff;
+    border:1px solid var(--line);
+    color:var(--text) !important;
+  }
+
+  .header-contact{
+    display:grid;
+    place-items:center;
+  }
+
+  .header-contact .icon{
+    width:20px !important;
+    height:20px !important;
+    color:var(--text) !important;
+    stroke:currentColor;
+  }
+
+  .menu-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:5px;
+  }
+
+  .menu-toggle span{
+    width:20px !important;
+    height:2px;
+    background:var(--text) !important;
+  }
+}
+
+@media (hover:hover) and (pointer:fine) and (max-width:1180px){
+  .header-contact:hover,
+  .menu-toggle:hover{
+    background:var(--teal-soft);
+    border-color:rgba(47,111,115,.28);
+    color:var(--text) !important;
+  }
+
+  .header-contact:hover .icon{
+    color:var(--text) !important;
+  }
+}
+
+@media (max-width:620px){
+  .header-contact,
+  .menu-toggle{
+    width:42px !important;
+    height:42px !important;
+    flex-basis:42px;
+  }
+
+  .header-contact .icon{
+    width:19px !important;
+    height:19px !important;
+  }
+
+  .menu-toggle span{
+    width:19px !important;
+  }
+}
