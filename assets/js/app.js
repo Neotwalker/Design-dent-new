@@ -6,6 +6,41 @@
   // Placeholder links are intentionally non-navigating until WordPress pages/contacts exist.
   $$('a[href="#"]').forEach(link => link.addEventListener('click', event => event.preventDefault()));
 
+  // Fancybox: hero video opens as an inline modal. The 2GIS iframe remains accompanied by a direct fallback link.
+  if (window.Fancybox) {
+    window.Fancybox.bind('[data-fancybox]', {
+      dragToClose: true,
+      hideScrollbar: false,
+      placeFocusBack: true,
+      Toolbar: { display: { left: [], middle: [], right: ['close'] } }
+    });
+  }
+
+  // Sticky chrome: on desktop/tablet the topbar collapses while scrolling down and returns on upward scroll.
+  const siteChrome = $('[data-site-chrome]');
+  let lastChromeScrollY = window.scrollY;
+  let chromeTicking = false;
+  const updateSiteChrome = () => {
+    if (!siteChrome) return;
+    const y = Math.max(0, window.scrollY);
+    siteChrome.classList.toggle('is-scrolled', y > 12);
+    if (matchMedia('(min-width: 921px)').matches) {
+      if (y < 40) siteChrome.classList.remove('is-topbar-hidden');
+      else if (y > lastChromeScrollY + 2) siteChrome.classList.add('is-topbar-hidden');
+      else if (y < lastChromeScrollY - 2) siteChrome.classList.remove('is-topbar-hidden');
+    } else {
+      siteChrome.classList.remove('is-topbar-hidden');
+    }
+    lastChromeScrollY = y;
+    chromeTicking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (chromeTicking) return;
+    chromeTicking = true;
+    requestAnimationFrame(updateSiteChrome);
+  }, { passive: true });
+  updateSiteChrome();
+
   // Mobile menu
   const menu = $('[data-mobile-menu]');
   const menuToggle = $('[data-menu-toggle]');
@@ -46,6 +81,48 @@
   };
   $('[data-service-prev]')?.addEventListener('click', () => scrollServices(-1));
   $('[data-service-next]')?.addEventListener('click', () => scrollServices(1));
+
+  // Fine-pointer drag scrolling for the services carousel. Native touch scrolling is left untouched.
+  if (serviceTrack && matchMedia('(pointer: fine)').matches) {
+    serviceTrack.classList.add('is-draggable');
+    let dragging = false;
+    let dragged = false;
+    let startX = 0;
+    let startScroll = 0;
+
+    serviceTrack.addEventListener('pointerdown', event => {
+      if (event.button !== 0) return;
+      dragging = true;
+      dragged = false;
+      startX = event.clientX;
+      startScroll = serviceTrack.scrollLeft;
+      serviceTrack.classList.add('is-dragging');
+      serviceTrack.setPointerCapture?.(event.pointerId);
+    });
+
+    serviceTrack.addEventListener('pointermove', event => {
+      if (!dragging) return;
+      const delta = event.clientX - startX;
+      if (Math.abs(delta) > 4) dragged = true;
+      serviceTrack.scrollLeft = startScroll - delta;
+    });
+
+    const endDrag = event => {
+      if (!dragging) return;
+      dragging = false;
+      serviceTrack.classList.remove('is-dragging');
+      try { serviceTrack.releasePointerCapture?.(event.pointerId); } catch (_) {}
+    };
+    serviceTrack.addEventListener('pointerup', endDrag);
+    serviceTrack.addEventListener('pointercancel', endDrag);
+    serviceTrack.addEventListener('pointerleave', event => { if (dragging && event.buttons === 0) endDrag(event); });
+    serviceTrack.addEventListener('click', event => {
+      if (!dragged) return;
+      event.preventDefault();
+      event.stopPropagation();
+      dragged = false;
+    }, true);
+  }
 
   // Before / after
   const beforeRange = $('[data-before-range]');

@@ -1,88 +1,30 @@
-# Design Dent - homepage prototype
+# Design Dent - Stage 4 desktop refinement
 
-Responsive static homepage prepared for GitHub Pages / GitHub Deployer and deliberately structured for a later WordPress integration.
+Этап продолжает desktop/tablet landscape версию главной и готовит её к дальнейшей интеграции в WordPress.
 
-## Structure
-- `index.html` - homepage markup
-- `assets/css/style.css` - responsive UI styles
-- `assets/js/app.js` - menu, modal forms, lead-source fields, phone mask, sliders, FAQ, map guard and scroll-to-top
-- `assets/img/` - logo, doctors, hero and before/after clinical images
+## Что изменено
 
-## WordPress mapping
-Recommended production split:
-- `header.php` - topbar, header, mobile menu
-- `footer.php` - footer, social links, modal form, floating controls
-- `front-page.php` - homepage sections
-- ACF options - contacts, opening hours, ratings fallback values, social links, video URL
-- CPT / dynamic content - `service`, `doctor`, `review` (only if needed in addition to widgets), `post`
-- Forms - CF7 + Flamingo or CRM/REST handler
+- trust-блок переведён с рейтинговых баллов на абстрактные показатели доверия: 2ГИС, Яндекс Карты, ПроДокторов;
+- официальный рейтинг-бейдж Яндекса перенесён в секцию отзывов;
+- topbar теперь содержит телефон, email `dizayndent@bk.ru` и icon-only ссылки VK/WhatsApp с tooltip;
+- на desktop телефон/email убраны из основного header; на mobile сохранены отдельные icon-only быстрые контакты;
+- topbar скрывается при прокрутке вниз и возвращается при прокрутке вверх;
+- в hero добавлен отдельный видеотриггер Fancybox; самостоятельная video-section удалена;
+- сервисный slider поддерживает drag мышью на fine-pointer устройствах;
+- усилена общая система плавных hover/focus-переходов;
+- анимация icon в «Профиль врача» сделана плавной;
+- блок «До / после» на desktop перестроен в case-study: интерактивное сравнение + задача / что сделали / результат;
+- ПроДокторов в отзывах показан через абстрактный счётчик 85+ без имитации live-рейтинга;
+- hover в FAQ сохраняет контраст иконки;
+- добавлен прозрачный `logo-footer.png`, белый фон логотипа в footer убран;
+- scroll-to-top получил плавное появление/исчезновение и остаётся справа;
+- адрес и режим работы в footer больше не получают pointer cursor;
+- email заменён во всех видимых местах на `dizayndent@bk.ru`.
 
-Every lead form already contains hidden analytics fields:
-- `form_id`
-- `form_name`
-- `source_block`
-- `cta_text`
-- `page_url`
-- `page_title`
-- `doctor`
-- `utm_source`
-- `utm_medium`
-- `utm_campaign`
-- `utm_content`
-- `utm_term`
-- `referrer`
+## Видео / Fancybox
 
-CTA buttons open the shared modal instead of scrolling to the bottom form. The lower form remains available as a direct inline conversion point.
+Подключён Fancybox 5 с CDN. Hero-триггер открывает inline modal. Внутри предусмотрен iframe карточки 2ГИС и прямая fallback-ссылка на ролик. Для production лучше получить исходный MP4/WebM клиники и заменить iframe на `<video>` - это даст предсказуемое воспроизведение без ограничений внешней площадки.
 
-## Reviews and ratings
-Current prototype behavior:
-- **Yandex rating** uses the official live rating badge iframe supplied for organization `1253824945`.
-- **Yandex reviews** use the official Maps reviews widget iframe and update on the Yandex side.
-- **ProDoctorov** currently uses a visual fallback card plus a direct source link; production should replace it with the official clinic widget code from the ProDoctorov account.
-- **2GIS** is linked directly. Rating/count can later be refreshed through Places API when an API key is available; text reviews are not scraped.
+## WordPress
 
-Important: an official iframe widget controls its own ordering. If production requires exactly the two newest reviews combined from several platforms in one custom Design Dent layout, that should be implemented server-side in WordPress via an approved reviews aggregator/API source. Do not scrape provider pages in front-end JavaScript.
-
-## Map behavior
-On touch/coarse-pointer devices the embedded map has pointer interaction disabled by default so page scrolling is not captured. The visitor explicitly taps “Открыть интерактивную карту” to activate it.
-
-## Placeholder links
-Unknown contacts/pages intentionally use `href="#"`:
-- clinic e-mail
-- WhatsApp
-- Telegram
-- future service/doctor/blog/legal pages
-
-VK, phone, Yandex Maps, 2GIS and ProDoctorov links are already connected.
-
-## Before launch
-1. Add the real e-mail, WhatsApp and Telegram links.
-2. Connect CF7/Flamingo or CRM handling and server-side validation.
-3. Insert the official Yandex and ProDoctorov widget embeds; add 2GIS API key if dynamic rating is required.
-4. Confirm publication consent for all patient before/after materials.
-5. Prefer a local optimized MP4/WebM for the clinic video when the source file is available.
-6. Recheck prices, doctor facts, ratings and counts.
-7. Add the future pages: services, service detail, doctors, prices, all reviews, blog archive and article.
-
-The ZIP is prepared so that `index.html` is in the archive root.
-
-
-## Desktop stage 2 changes
-- larger desktop header/navigation typography
-- removed duplicate phone from topbar
-- added VK and WhatsApp quick links
-- scrollbar compensation and instant scroll restoration for modal open/close
-- hover/focus states across site links and buttons
-- Yandex live rating/reviews widgets
-- 2GIS reviews link
-- preserved before/after clinical image height with `object-fit: contain`
-- vertically centered advantages rows
-- unified doctor CTA colors
-- added “Все цены” placeholder link
-- made the full blog card clickable
-- smoother FAQ reveal
-- semantic cleanup: ordered advantages list, single clickable blog area, labelled review navigation/iframes
-
-## Stage 3 - tablet landscape / 1024 px
-
-Added a dedicated 921-1180 px responsive layer rather than shrinking the desktop layout. The stage focuses on 1024 px landscape/tablet widths: three complete service cards, stable equal doctor cards, a compact two-column founder block, side-by-side review sources, corrected spacing and readable tablet typography.
+Архитектура по-прежнему рассчитана на перенос в `header.php`, `footer.php`, `front-page.php`, ACF и CPT. Абстрактные количества отзывов лучше вынести в опции ACF, чтобы администратор мог обновлять их без правки шаблона.
