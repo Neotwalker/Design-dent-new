@@ -1337,3 +1337,55 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
   .hero__tags a{padding:12px 20px}
   .hero__founder{right:32px;bottom:32px}
 }
+
+
+/* Stage 7 desktop polish: results balance, blog hover and modal form ergonomics. */
+@media (min-width:1181px){
+  .results-showcase{
+    grid-template-columns:minmax(360px,40%) minmax(0,60%);
+    gap:34px;
+    align-items:start;
+  }
+  .results-showcase .before-after{
+    width:100%;
+    max-width:610px;
+    aspect-ratio:1/1;
+    min-height:0;
+    align-self:start;
+  }
+  .result-case{
+    min-height:680px;
+  }
+}
+@media (min-width:1600px){
+  .results-showcase{
+    grid-template-columns:minmax(420px,39%) minmax(0,61%);
+    gap:40px;
+  }
+  .results-showcase .before-after{
+    max-width:620px;
+  }
+  .result-case{
+    min-height:720px;
+  }
+}
+
+.blog-card h3{
+  transition:color .28s var(--ease-ui);
+}
+@media (hover:hover) and (pointer:fine){
+  .blog-card:hover h3,
+  .blog-card:focus-within h3{
+    color:var(--gold-dark);
+  }
+}
+
+/* The service selector spans the modal form; name and phone stay side by side on desktop. */
+.lead-modal__service{
+  grid-column:1 / -1;
+}
+
+/* Phone fields visually and functionally start from the Russian country code. */
+.lead-form input[data-phone-mask]{
+  font-variant-numeric:tabular-nums;
+}

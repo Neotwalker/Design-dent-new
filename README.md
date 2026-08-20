@@ -28,3 +28,12 @@ Changes in this stage:
 - footer logo заменён на отдельный PNG с реальным прозрачным фоном и белым знаком/надписью;
 - унифицирован hover у ссылок со стрелкой: текст и SVG всегда наследуют один цвет;
 - сохранены предыдущие desktop/topbar/modal/scroll-lock исправления.
+
+## Stage 7 desktop polish
+
+- Before/after desktop layout rebalanced to roughly 40/60: the interactive image is intentionally smaller than the case description panel.
+- Blog card hover now changes the article title color in addition to card/link feedback.
+- Phone fields start from `+7` and keep the Russian country prefix visible while typing/pasting.
+- The service selector in the lead modal spans the full form width.
+- Removed the redundant `allowfullscreen` iframe attribute; `allow="autoplay; fullscreen"` remains.
+- Console note: this project does not load `tag.js` or `tag_turbo.js` directly. If `ERR_CONNECTION_CLOSED` for those files is shown while the Yandex review/map iframe is present, it originates from third-party iframe resources/network filtering rather than `assets/js/app.js`. `runtime.lastError` messages are typically produced by a browser extension runtime and are likewise outside the page script.

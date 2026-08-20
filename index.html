@@ -348,7 +348,7 @@
           <form class="lead-form appointment__form" data-lead-form data-form-id="home_inline" data-form-name="Главная - Нижняя форма" novalidate>
             <input type="hidden" name="form_id" value="home_inline"><input type="hidden" name="form_name" value="Главная - Нижняя форма"><input type="hidden" name="source_block" value="appointment"><input type="hidden" name="cta_text" value=""><input type="hidden" name="page_url" value=""><input type="hidden" name="page_title" value=""><input type="hidden" name="doctor" value=""><input type="hidden" name="utm_source" value=""><input type="hidden" name="utm_medium" value=""><input type="hidden" name="utm_campaign" value=""><input type="hidden" name="utm_content" value=""><input type="hidden" name="utm_term" value=""><input type="hidden" name="referrer" value="">
             <label><span>Ваше имя</span><input type="text" name="name" autocomplete="name" placeholder="Как к вам обращаться" required></label>
-            <label><span>Номер телефона</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" required data-phone-mask></label>
+            <label><span>Номер телефона</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" value="+7" placeholder="+7 (___) ___-__-__" required data-phone-mask></label>
             <label class="appointment__select"><span>Что вас интересует</span><select name="service"><option>Консультация</option><option>Лечение зубов</option><option>Имплантация</option><option>Протезирование</option><option>Профессиональная гигиена</option><option>Детская стоматология</option></select></label>
             <label class="checkbox"><input type="checkbox" name="privacy" required><span class="checkbox__box" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><span class="checkbox__text">Согласен на обработку персональных данных и с <a href="#">политикой конфиденциальности</a></span></label>
             <button class="btn btn--gold" type="submit">Отправить заявку</button>
@@ -385,7 +385,7 @@
 
   <div class="clinic-video-modal" id="clinic-video-modal" style="display:none">
     <div class="clinic-video-modal__head"><span class="eyebrow">Клиника изнутри</span><h2>Видео о Дизайн Дент</h2><p>Ролик из карточки клиники в 2ГИС.</p></div>
-    <div class="clinic-video-modal__frame"><iframe src="https://2gis.ru/chelyabinsk/gallery/firm/2111590608205124/photoId/30258560223528320" title="Видео о клинике Дизайн Дент в 2ГИС" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+    <div class="clinic-video-modal__frame"><iframe src="https://2gis.ru/chelyabinsk/gallery/firm/2111590608205124/photoId/30258560223528320" title="Видео о клинике Дизайн Дент в 2ГИС" loading="lazy" allow="autoplay; fullscreen"></iframe></div>
     <a class="btn btn--gold" href="https://2gis.ru/chelyabinsk/gallery/geo/2111590608205124/photoId/30258560223528320" target="_blank" rel="noopener">Открыть видео в 2ГИС</a>
   </div>
 
@@ -397,8 +397,8 @@
       <form class="lead-form lead-modal__form" data-lead-form data-form-id="modal_lead" data-form-name="Модальная форма" novalidate>
         <input type="hidden" name="form_id" value="modal_lead"><input type="hidden" name="form_name" value="Модальная форма"><input type="hidden" name="source_block" value=""><input type="hidden" name="cta_text" value=""><input type="hidden" name="page_url" value=""><input type="hidden" name="page_title" value=""><input type="hidden" name="doctor" value=""><input type="hidden" name="utm_source" value=""><input type="hidden" name="utm_medium" value=""><input type="hidden" name="utm_campaign" value=""><input type="hidden" name="utm_content" value=""><input type="hidden" name="utm_term" value=""><input type="hidden" name="referrer" value="">
         <label><span>Ваше имя</span><input type="text" name="name" autocomplete="name" placeholder="Как к вам обращаться" required></label>
-        <label><span>Номер телефона</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" required data-phone-mask></label>
-        <label><span>Что вас интересует</span><select name="service"><option>Консультация</option><option>Лечение зубов</option><option>Имплантация</option><option>Протезирование</option><option>Профессиональная гигиена</option><option>Детская стоматология</option></select></label>
+        <label><span>Номер телефона</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" value="+7" placeholder="+7 (___) ___-__-__" required data-phone-mask></label>
+        <label class="lead-modal__service"><span>Что вас интересует</span><select name="service"><option>Консультация</option><option>Лечение зубов</option><option>Имплантация</option><option>Протезирование</option><option>Профессиональная гигиена</option><option>Детская стоматология</option></select></label>
         <label class="checkbox"><input type="checkbox" name="privacy" required><span class="checkbox__box" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><span class="checkbox__text">Согласен на обработку персональных данных и с <a href="#">политикой конфиденциальности</a></span></label>
         <button class="btn btn--gold" type="submit">Отправить заявку</button>
         <div class="form-success" role="status" aria-live="polite" hidden>Спасибо! Демо-форма успешно прошла проверку.</div>

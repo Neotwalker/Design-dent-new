@@ -219,18 +219,20 @@
     if (!mapShell.contains(event.target) && matchMedia('(pointer: coarse)').matches) mapShell.classList.remove('is-active');
   });
 
-  // Phone mask: +_ (___) ___-__-__. For Russian numbers, an initial 8 is normalized to +7.
+  // Russian phone mask. The field starts with +7 and keeps the country code visible.
   const formatPhone = raw => {
-    let digits = String(raw || '').replace(/\D/g, '').slice(0, 11);
-    if (!digits) return '';
-    if (digits[0] === '8' && digits.length > 1) digits = `7${digits.slice(1)}`;
-    const country = digits[0] || '';
+    let digits = String(raw || '').replace(/\D/g, '');
+    if (!digits) digits = '7';
+    if (digits[0] === '8') digits = `7${digits.slice(1)}`;
+    else if (digits[0] !== '7') digits = `7${digits}`;
+    digits = digits.slice(0, 11);
+
     const area = digits.slice(1, 4);
     const first = digits.slice(4, 7);
     const second = digits.slice(7, 9);
     const third = digits.slice(9, 11);
-    let value = `+${country}`;
-    if (area.length || digits.length > 1) value += ` (${area}`;
+    let value = '+7';
+    if (area.length) value += ` (${area}`;
     if (area.length === 3) value += ')';
     if (first) value += ` ${first}`;
     if (second) value += `-${second}`;
@@ -239,14 +241,22 @@
   };
 
   $$('[data-phone-mask]').forEach(input => {
+    input.value = formatPhone(input.value || '+7');
+    const moveCaretToEnd = () => {
+      requestAnimationFrame(() => input.setSelectionRange(input.value.length, input.value.length));
+    };
+    input.addEventListener('focus', () => {
+      if (!input.value.trim()) input.value = '+7';
+      moveCaretToEnd();
+    });
     input.addEventListener('input', () => {
-      const formatted = formatPhone(input.value);
-      input.value = formatted;
-      input.setSelectionRange(input.value.length, input.value.length);
+      input.value = formatPhone(input.value);
+      moveCaretToEnd();
     });
     input.addEventListener('paste', event => {
       event.preventDefault();
-      input.value = formatPhone(event.clipboardData?.getData('text') || '');
+      input.value = formatPhone(event.clipboardData?.getData('text') || '+7');
+      moveCaretToEnd();
       input.dispatchEvent(new Event('input', { bubbles: true }));
     });
   });
