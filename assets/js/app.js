@@ -277,8 +277,16 @@
   const mapShell = $('[data-map-shell]');
   const mapActivate = $('[data-map-activate]');
   mapActivate?.addEventListener('click', () => {
-    mapShell?.classList.add('is-active');
+    if (!mapShell) return;
+    mapShell.classList.add('is-active');
     mapActivate.setAttribute('aria-pressed', 'true');
+
+    // The iframe has always remained interactive underneath the activation cover.
+    // Focusing it after the cover disappears makes touch/keyboard activation more predictable.
+    const iframe = $('iframe', mapShell);
+    requestAnimationFrame(() => {
+      try { iframe?.focus({ preventScroll: true }); } catch (_) { iframe?.focus(); }
+    });
   });
 
   // Smooth internal anchors with a stable header offset.

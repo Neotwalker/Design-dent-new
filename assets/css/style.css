@@ -2663,3 +2663,111 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
     touch-action:auto;
   }
 }
+
+
+/* ===== Stage 20: mobile map activation + hero height + document sizing ===== */
+
+/* Documents use a calmer radius on every breakpoint. */
+.document-card{
+  border-radius:14px !important;
+}
+
+/* Under 768px hero relies on min-height only.
+   Explicit fixed heights from earlier tablet/mobile rules are cancelled. */
+@media (max-width:767px){
+  .hero__card{
+    height:auto !important;
+  }
+}
+
+/* Mobile / tablet map:
+   Keep the iframe interactive from the start, but cover it with one activation
+   layer. The cover allows vertical page scrolling and disappears after tap.
+   This avoids Safari/iOS issues caused by toggling pointer-events on an iframe. */
+@media (max-width:920px), (pointer:coarse){
+  .contacts__map iframe,
+  .contacts__map.is-active iframe{
+    pointer-events:auto !important;
+    touch-action:auto !important;
+  }
+
+  .map-activate{
+    display:flex !important;
+    position:absolute !important;
+    inset:0 !important;
+    z-index:3 !important;
+    min-height:0 !important;
+    border:0 !important;
+    border-radius:inherit !important;
+    background:linear-gradient(
+      180deg,
+      rgba(255,255,255,.01) 0%,
+      rgba(255,255,255,.01) 68%,
+      rgba(19,45,47,.20) 100%
+    ) !important;
+    color:#fff !important;
+    align-items:flex-end !important;
+    justify-content:center !important;
+    gap:8px !important;
+    padding:0 18px 18px !important;
+    box-shadow:none !important;
+    touch-action:pan-y !important;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  .map-activate .icon,
+  .map-activate span{
+    position:relative;
+    z-index:1;
+  }
+
+  .map-activate span{
+    display:inline-flex;
+    align-items:center;
+    min-height:50px;
+    padding:0 18px;
+    border-radius:15px;
+    background:rgba(29,52,53,.95);
+    box-shadow:0 12px 28px rgba(0,0,0,.18);
+    font-size:12px;
+    font-weight:700;
+  }
+
+  .map-activate .icon{
+    width:50px;
+    height:50px;
+    padding:14px;
+    border-radius:15px;
+    background:rgba(29,52,53,.95);
+    box-shadow:0 12px 28px rgba(0,0,0,.18);
+  }
+
+  .contacts__map.is-active .map-activate{
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+}
+
+/* Phones: one certificate plus a visible piece of the next one. */
+@media (max-width:620px){
+  .credentials__gallery{
+    display:flex !important;
+    grid-template-columns:none !important;
+    grid-auto-columns:unset !important;
+    gap:12px !important;
+  }
+
+  .credentials__gallery .document-card,
+  .credentials__gallery .document-card:last-child{
+    flex:0 0 85vw !important;
+    width:85vw !important;
+    max-width:85vw !important;
+    min-width:0 !important;
+  }
+
+  .credentials__gallery .document-card__preview,
+  .credentials__gallery .document-card:last-child .document-card__preview{
+    aspect-ratio:3/4 !important;
+  }
+}
