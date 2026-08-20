@@ -20,3 +20,8 @@
 - размеры glyph-иконок и burger-линий выровнены визуально.
 
 - для ширины <=920px добавлен финальный specificity override: иконки телефона/почты и burger принудительно используют `var(--text)` вместо золотого цвета.
+
+- исправлен фактический selector mobile-контактов: `.header__mobile-contacts a`;
+- у телефона и почты на <=920px теперь `color: var(--text) !important`;
+- SVG продолжает использовать `stroke: currentColor`, поэтому иконки наследуют правильный чёрный цвет;
+- размеры mobile contact icons унифицированы: 20px на tablet и 19px на <=620px.

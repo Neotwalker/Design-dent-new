@@ -3016,3 +3016,42 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
     stroke:var(--text) !important;
   }
 }
+
+
+/* ===== Stage 26: actual mobile header contacts selector ===== */
+@media (max-width:920px){
+  .header__mobile-contacts a,
+  .header__mobile-contacts a:link,
+  .header__mobile-contacts a:visited{
+    color:var(--text) !important;
+  }
+
+  .header__mobile-contacts a .icon,
+  .header__mobile-contacts a svg{
+    width:20px !important;
+    height:20px !important;
+    color:var(--text) !important;
+    stroke:currentColor !important;
+  }
+
+  .header__mobile-contacts a svg use{
+    color:inherit !important;
+    stroke:inherit !important;
+  }
+}
+
+@media (hover:hover) and (pointer:fine) and (max-width:920px){
+  .header__mobile-contacts a:hover,
+  .header__mobile-contacts a:hover .icon,
+  .header__mobile-contacts a:hover svg{
+    color:var(--text) !important;
+  }
+}
+
+@media (max-width:620px){
+  .header__mobile-contacts a .icon,
+  .header__mobile-contacts a svg{
+    width:19px !important;
+    height:19px !important;
+  }
+}
