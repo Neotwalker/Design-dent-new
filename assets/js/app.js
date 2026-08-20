@@ -134,12 +134,21 @@
 
   const closeMenu = (returnFocus = true) => {
     if (!menu || !menuToggle) return;
+
+    if (returnFocus && document.activeElement instanceof HTMLElement && menu.contains(document.activeElement)) {
+      document.activeElement.blur();
+      try {
+        menuToggle.focus({ preventScroll: true });
+      } catch (_) {
+        menuToggle.focus();
+      }
+    }
+
     menu.classList.remove('is-open');
     menu.setAttribute('aria-hidden', 'true');
     menuToggle.setAttribute('aria-expanded', 'false');
     body.classList.remove('menu-open');
     unlockMenuBody();
-    if (returnFocus) requestAnimationFrame(() => menuToggle.focus({ preventScroll: true }));
   };
 
   menuToggle?.addEventListener('click', openMenu);
@@ -492,6 +501,7 @@
     modalForm.reset();
     modalSuccess?.classList.remove('is-visible');
     modalSuccess?.setAttribute('aria-hidden', 'true');
+    modalSuccess?.setAttribute('inert', '');
     hydrateTracking(modalForm, {
       form_id: 'modal_lead',
       form_name: formName,
@@ -501,20 +511,48 @@
     });
     if (service && modalForm.elements.service) modalForm.elements.service.value = service;
 
-    modal.classList.add('is-open');
+    modal.removeAttribute('inert');
     modal.setAttribute('aria-hidden', 'false');
+    modal.classList.add('is-open');
     lockBody();
-    requestAnimationFrame(() => modalForm.elements.name?.focus());
+    requestAnimationFrame(() => modalForm.elements.name?.focus({ preventScroll: true }));
   };
 
   const closeLeadModal = () => {
     if (!modal?.classList.contains('is-open')) return;
+
+    // Move focus out of the modal BEFORE making the modal aria-hidden/inert.
+    // Otherwise Chromium blocks aria-hidden because the focused close button
+    // is still a descendant of the element being hidden.
+    const activeElement = document.activeElement;
+    const restoreTarget =
+      lastFocused instanceof HTMLElement &&
+      lastFocused.isConnected &&
+      !modal.contains(lastFocused)
+        ? lastFocused
+        : null;
+
+    if (activeElement instanceof HTMLElement && modal.contains(activeElement)) {
+      activeElement.blur();
+    }
+    if (restoreTarget) {
+      try {
+        restoreTarget.focus({ preventScroll: true });
+      } catch (_) {
+        restoreTarget.focus();
+      }
+    }
+
     modalSuccess?.classList.remove('is-visible');
+    modalSuccess?.setAttribute('inert', '');
     modalSuccess?.setAttribute('aria-hidden', 'true');
+
     modal.classList.remove('is-open');
+    modal.setAttribute('inert', '');
     modal.setAttribute('aria-hidden', 'true');
+
     unlockBody();
-    if (lastFocused instanceof HTMLElement) lastFocused.focus({ preventScroll: true });
+    lastFocused = null;
   };
 
   $$('[data-open-lead]').forEach(trigger => trigger.addEventListener('click', () => openLeadModal(trigger)));
@@ -565,9 +603,14 @@
       }
 
       if (form === modalForm) {
-        modalSuccess?.classList.add('is-visible');
+        // Move focus away from the form before making the success dialog active.
+        if (document.activeElement instanceof HTMLElement && modalForm.contains(document.activeElement)) {
+          document.activeElement.blur();
+        }
+        modalSuccess?.removeAttribute('inert');
         modalSuccess?.setAttribute('aria-hidden', 'false');
-        requestAnimationFrame(() => modalSuccessClose?.focus());
+        modalSuccess?.classList.add('is-visible');
+        requestAnimationFrame(() => modalSuccessClose?.focus({ preventScroll: true }));
         return;
       }
 

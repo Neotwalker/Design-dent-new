@@ -25,3 +25,9 @@
 - у телефона и почты на <=920px теперь `color: var(--text) !important`;
 - SVG продолжает использовать `stroke: currentColor`, поэтому иконки наследуют правильный чёрный цвет;
 - размеры mobile contact icons унифицированы: 20px на tablet и 19px на <=620px.
+
+- исправлено предупреждение Chromium `Blocked aria-hidden on an element because its descendant retained focus`;
+- перед установкой `aria-hidden="true"` focus теперь выводится за пределы модалки;
+- для закрытой `lead-modal` и `lead-success` добавлен `inert`;
+- при открытии `inert` снимается до установки focus;
+- аналогичный порядок focus/aria-hidden применён к закрытию мобильного burger-menu.
