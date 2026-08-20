@@ -2570,3 +2570,96 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
   .lead-modal__backdrop,
   .lead-modal__dialog{transition-duration:.01ms !important}
 }
+
+
+/* ===== Stage 19: success overlay, certificates mobile rail, video placement, map touch ===== */
+
+/* Hidden success overlays must not be translated outside a scrollable modal:
+   that was extending the modal's scroll area and creating a blank white panel. */
+.lead-success{
+  z-index:-1 !important;
+  transform:scale(.96) !important;
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+  transition:
+    transform .24s var(--ease-ui),
+    opacity .2s ease,
+    visibility 0s linear .24s,
+    z-index 0s linear .24s !important;
+}
+.lead-success.is-visible{
+  z-index:20 !important;
+  transform:scale(1) !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
+  transition-delay:0s !important;
+}
+.inline-success-overlay{
+  transform:scale(.98) !important;
+}
+.inline-success-overlay.is-visible{
+  transform:scale(1) !important;
+}
+
+/* 620px and below: a stable two-column-width horizontal rail.
+   Flex avoids the legacy grid rules that made the third document much wider. */
+@media (max-width:620px){
+  .credentials__gallery{
+    display:flex !important;
+    grid-auto-flow:unset !important;
+    grid-template-columns:none !important;
+    grid-auto-columns:unset !important;
+    align-items:stretch;
+    gap:12px !important;
+  }
+  .credentials__gallery .document-card,
+  .credentials__gallery .document-card:last-child{
+    flex:0 0 calc((100vw - 54px) / 2) !important;
+    width:calc((100vw - 54px) / 2) !important;
+    min-width:0 !important;
+    grid-column:auto !important;
+  }
+  .credentials__gallery .document-card__preview,
+  .credentials__gallery .document-card:last-child .document-card__preview{
+    aspect-ratio:3/4 !important;
+  }
+}
+
+/* Intermediate phone/small-tablet widths: keep video CTA in the upper-right
+   corner instead of over the headline. */
+@media (min-width:621px) and (max-width:768px){
+  .hero-video-trigger{
+    top:20px !important;
+    right:18px !important;
+    transform:none !important;
+    padding:6px !important;
+    border-radius:50% !important;
+  }
+  .hero-video-trigger__icon{
+    width:50px !important;
+    height:50px !important;
+    position:relative;
+  }
+  .hero-video-trigger__copy{
+    display:none !important;
+  }
+  .hero__content{
+    padding-right:58px;
+  }
+}
+
+/* Mobile map: once explicitly activated, the iframe receives touch gestures.
+   Do not let stale pointer/touch rules keep it inert. */
+@media (max-width:920px), (pointer:coarse){
+  .contacts__map.is-active iframe{
+    pointer-events:auto !important;
+    touch-action:auto !important;
+    -webkit-user-select:auto;
+    user-select:auto;
+  }
+  .contacts__map.is-active{
+    touch-action:auto;
+  }
+}

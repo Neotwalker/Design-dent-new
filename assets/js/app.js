@@ -280,9 +280,31 @@
     mapShell?.classList.add('is-active');
     mapActivate.setAttribute('aria-pressed', 'true');
   });
-  document.addEventListener('click', event => {
-    if (!mapShell?.classList.contains('is-active')) return;
-    if (!mapShell.contains(event.target) && matchMedia('(pointer: coarse)').matches) mapShell.classList.remove('is-active');
+
+  // Smooth internal anchors with a stable header offset.
+  $$('a[href^="#"]:not([href="#"])').forEach(link => {
+    link.addEventListener('click', event => {
+      const hash = link.getAttribute('href');
+      if (!hash || hash.length < 2) return;
+      const target = document.querySelector(hash);
+      if (!target) return;
+
+      event.preventDefault();
+
+      const performScroll = () => {
+        const chromeHeight = siteChrome?.getBoundingClientRect().height || 0;
+        const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - chromeHeight - 16);
+        window.scrollTo({ top, behavior: 'smooth' });
+        try { history.replaceState(null, '', hash); } catch (_) {}
+      };
+
+      if (menu?.classList.contains('is-open')) {
+        closeMenu(false);
+        requestAnimationFrame(() => requestAnimationFrame(performScroll));
+      } else {
+        performScroll();
+      }
+    });
   });
 
   // Russian phone mask. Placeholder stays visible while empty; Backspace removes the last entered digit even when the caret sits after a formatting character.
