@@ -29,8 +29,6 @@ svg{display:block}
 .svg-sprite{position:absolute;width:0;height:0;overflow:hidden}
 .icon{width:1.2em;height:1.2em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
 .container{width:var(--container);margin-inline:auto}
-.skip-link{position:fixed;z-index:999;left:16px;top:16px;background:#fff;padding:12px 16px;border-radius:8px;transform:translateY(-180%)}
-.skip-link:focus{transform:none}
 .section{padding:108px 0}
 .eyebrow{display:inline-block;margin-bottom:20px;color:var(--teal);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
 .eyebrow--light{color:#edf5f4}
@@ -1906,5 +1904,66 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
   .doctor-card__image,
   .doctor-card__body{
     min-height:360px;
+  }
+}
+
+
+/* ===== Stage 13: semantic service links + compact wide doctor cards ===== */
+.service-card{
+  color:var(--text);
+  text-decoration:none;
+}
+.service-card:visited{color:var(--text)}
+.service-card .mini-link{
+  pointer-events:none;
+}
+@media (hover:hover) and (pointer:fine){
+  .service-card:hover h3{color:var(--teal-dark)}
+  .service-card:hover .mini-link{background:var(--teal);color:#fff;transform:translateY(-2px)}
+}
+
+@media (min-width:1181px){
+  .doctor-card,
+  .doctor-card--wide{
+    grid-template-columns:minmax(300px,42%) minmax(0,58%);
+    grid-template-rows:460px;
+    min-height:0;
+    height:460px;
+  }
+  .doctor-card__image,
+  .doctor-card__body{
+    min-height:0;
+    height:460px;
+  }
+  .doctor-card__body{
+    padding:28px 32px;
+  }
+  .doctor-card h3{
+    font-size:clamp(30px,2.2vw,42px);
+    margin-bottom:12px;
+  }
+  .doctor-card__role{margin-bottom:12px}
+  .doctor-card p{margin-bottom:14px}
+  .doctor-card__tags{margin:2px 0 14px}
+  .doctor-card__foot{padding-top:14px}
+}
+
+@media (min-width:1600px){
+  .doctor-card,
+  .doctor-card--wide{
+    grid-template-columns:minmax(340px,42%) minmax(0,58%);
+    grid-template-rows:480px;
+    height:480px;
+  }
+  .doctor-card__image,
+  .doctor-card__body{
+    height:480px;
+  }
+}
+
+@media (max-width:1180px){
+  .doctor-card,
+  .doctor-card--wide{
+    height:auto;
   }
 }

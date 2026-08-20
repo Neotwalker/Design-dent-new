@@ -122,7 +122,6 @@
   servicePrevButton?.addEventListener('click', () => scrollServices(-1));
   serviceNextButton?.addEventListener('click', () => scrollServices(1));
 
-  const serviceCards = $$('.service-card', serviceTrack || document);
 
   // Fine-pointer drag scrolling for the services carousel. Native touch scrolling is left untouched.
   if (serviceTrack && matchMedia('(pointer: fine)').matches) {
@@ -134,7 +133,7 @@
 
     serviceTrack.addEventListener('pointerdown', event => {
       if (event.button !== 0) return;
-      if (event.target.closest('a,button')) return;
+      if (event.target.closest('button')) return;
       dragging = true;
       dragged = false;
       startX = event.clientX;
@@ -167,27 +166,7 @@
     }, true);
   }
 
-  // Make the whole service card feel clickable, while preserving drag-scroll behaviour.
-  serviceCards.forEach(card => {
-    const targetLink = $('[data-service-link]', card) || $('.mini-link', card);
-    if (!targetLink) return;
-
-    card.addEventListener('click', event => {
-      if (event.target.closest('a,button,input,select,textarea,label')) return;
-      if (targetLink.getAttribute('href') && targetLink.getAttribute('href') !== '#') {
-        window.location.href = targetLink.href;
-      } else {
-        targetLink.click();
-      }
-    });
-
-    card.addEventListener('keydown', event => {
-      if (event.key !== 'Enter' && event.key !== ' ') return;
-      if (event.target.closest('a,button,input,select,textarea,label') && event.target !== card) return;
-      event.preventDefault();
-      targetLink.click();
-    });
-  });
+  // Service cards are native anchors. A drag cancels the click in the capture handler above.
 
   // Licenses and certificates slider.
   const credentialsTrack = $('[data-credentials-track]');
