@@ -2771,3 +2771,46 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
     aspect-ratio:3/4 !important;
   }
 }
+
+
+/* ===== Stage 21: exact Yandex Business map ===== */
+.contacts__map-fallback{
+  position:absolute;
+  z-index:4;
+  right:14px;
+  top:14px;
+  padding:9px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.94);
+  color:var(--teal-dark);
+  font-size:11px;
+  font-weight:700;
+  box-shadow:0 8px 24px rgba(20,37,38,.12);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .22s ease,visibility .22s ease,transform .22s var(--ease-ui);
+  transform:translateY(-4px);
+}
+.contacts__map.is-active .contacts__map-fallback{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:none;
+}
+@media (hover:hover) and (pointer:fine){
+  .contacts__map-fallback:hover{
+    color:var(--gold-dark);
+    transform:translateY(-1px);
+  }
+}
+@media (max-width:620px){
+  .contacts__map-fallback{
+    right:10px;
+    top:10px;
+    max-width:calc(100% - 20px);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+}
