@@ -1389,3 +1389,36 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
 .lead-form input[data-phone-mask]{
   font-variant-numeric:tabular-nums;
 }
+
+
+/* Stage 8: keep before/after and case card visually equal in height on desktop. */
+@media (min-width:1181px){
+  .results-showcase{
+    grid-template-columns:minmax(520px,43%) minmax(0,1fr);
+    gap:34px;
+    align-items:stretch;
+    max-width:100%;
+  }
+  .results-showcase .before-after{
+    width:100%;
+    max-width:100%;
+    height:100%;
+    min-height:680px;
+    aspect-ratio:auto;
+    align-self:stretch;
+  }
+  .result-case{
+    height:100%;
+    min-height:680px;
+  }
+}
+@media (min-width:1600px){
+  .results-showcase{
+    grid-template-columns:minmax(520px,43%) minmax(0,1fr);
+    gap:40px;
+  }
+  .results-showcase .before-after,
+  .result-case{
+    min-height:720px;
+  }
+}

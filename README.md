@@ -37,3 +37,9 @@ Changes in this stage:
 - The service selector in the lead modal spans the full form width.
 - Removed the redundant `allowfullscreen` iframe attribute; `allow="autoplay; fullscreen"` remains.
 - Console note: this project does not load `tag.js` or `tag_turbo.js` directly. If `ERR_CONNECTION_CLOSED` for those files is shown while the Yandex review/map iframe is present, it originates from third-party iframe resources/network filtering rather than `assets/js/app.js`. `runtime.lastError` messages are typically produced by a browser extension runtime and are likewise outside the page script.
+
+
+## Stage 8 desktop fixes
+- Phone inputs are empty by default again, so the `+7 (___) ___-__-__` placeholder is visible.
+- The mask prepends `+7` on the first typed digit and allows the field to be completely cleared without leaving a dangling parenthesis.
+- Desktop before/after and case card now stretch to the same height; the image column is about 43% and the case description gets the remaining width.

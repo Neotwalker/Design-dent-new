@@ -219,10 +219,10 @@
     if (!mapShell.contains(event.target) && matchMedia('(pointer: coarse)').matches) mapShell.classList.remove('is-active');
   });
 
-  // Russian phone mask. The field starts with +7 and keeps the country code visible.
+  // Russian phone mask. Placeholder stays visible while the field is empty; +7 is inserted with the first digit.
   const formatPhone = raw => {
     let digits = String(raw || '').replace(/\D/g, '');
-    if (!digits) digits = '7';
+    if (!digits) return '';
     if (digits[0] === '8') digits = `7${digits.slice(1)}`;
     else if (digits[0] !== '7') digits = `7${digits}`;
     digits = digits.slice(0, 11);
@@ -241,23 +241,28 @@
   };
 
   $$('[data-phone-mask]').forEach(input => {
-    input.value = formatPhone(input.value || '+7');
+    input.value = formatPhone(input.value);
     const moveCaretToEnd = () => {
       requestAnimationFrame(() => input.setSelectionRange(input.value.length, input.value.length));
     };
-    input.addEventListener('focus', () => {
-      if (!input.value.trim()) input.value = '+7';
-      moveCaretToEnd();
-    });
     input.addEventListener('input', () => {
       input.value = formatPhone(input.value);
       moveCaretToEnd();
     });
     input.addEventListener('paste', event => {
       event.preventDefault();
-      input.value = formatPhone(event.clipboardData?.getData('text') || '+7');
+      input.value = formatPhone(event.clipboardData?.getData('text') || '');
       moveCaretToEnd();
       input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    input.addEventListener('keydown', event => {
+      if (event.key !== 'Backspace' && event.key !== 'Delete') return;
+      const allSelected = input.selectionStart === 0 && input.selectionEnd === input.value.length;
+      const onlyPrefix = input.value === '+7' || input.value === '+7 (';
+      if (allSelected || onlyPrefix) {
+        event.preventDefault();
+        input.value = '';
+      }
     });
   });
 
