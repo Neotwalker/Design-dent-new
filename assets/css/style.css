@@ -2161,3 +2161,234 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
 .inline-success-overlay.is-visible{
   display:flex !important;
 }
+
+/* ===== Stage 17: tablet rails, modal motion and Yandex widget scaling ===== */
+
+/* Tablet hero: keep tags visually separated from founder card. */
+@media (min-width:621px) and (max-width:920px){
+  .hero__card{
+    min-height:550px;
+    height:550px;
+  }
+  .hero__content{
+    top:34px;
+  }
+  .hero__content p{
+    margin-bottom:18px;
+  }
+  .hero__tags{
+    left:22px;
+    right:22px;
+    bottom:96px;
+    gap:8px;
+    padding:0;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+  }
+  .hero__founder{
+    left:22px;
+    right:22px;
+    bottom:14px;
+    min-width:0;
+    padding-top:12px;
+    padding-bottom:12px;
+  }
+}
+
+/* Yandex's embedded reviews layout has a fixed inner canvas on tablets.
+   Scale that canvas uniformly so the visible widget fills our column. */
+@media (min-width:621px) and (max-width:1180px){
+  .yandex-reviews-widget{
+    --yandex-scale:1;
+    --yandex-scaled-height:520px;
+    width:100%;
+    height:var(--yandex-scaled-height);
+    min-height:0 !important;
+    overflow:hidden;
+    background:#fff !important;
+  }
+  .yandex-reviews-widget iframe{
+    width:760px !important;
+    min-width:760px !important;
+    max-width:760px !important;
+    height:520px !important;
+    transform:scale(var(--yandex-scale));
+    transform-origin:top left;
+    background:#fff !important;
+  }
+}
+
+/* Full-bleed tablet rails: cards snap fully into view and scrollbars stay hidden. */
+@media (max-width:920px){
+  .blog-grid,
+  .doctors__grid{
+    display:grid;
+    grid-template-columns:none !important;
+    grid-auto-flow:column;
+    grid-auto-columns:calc((100vw - 60px) / 2);
+    gap:16px;
+    width:auto;
+    margin-inline:calc((100vw - 100%) / -2);
+    padding:8px max(22px,calc((100vw - 100%) / 2)) 18px;
+    scroll-padding-inline:max(22px,calc((100vw - 100%) / 2));
+    overflow-x:auto;
+    overflow-y:visible;
+    scroll-snap-type:x mandatory;
+    overscroll-behavior-x:contain;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .blog-grid::-webkit-scrollbar,
+  .doctors__grid::-webkit-scrollbar{
+    display:none;
+  }
+  .blog-card,
+  .blog-card:last-child,
+  .doctor-card,
+  .doctor-card--wide{
+    grid-column:auto !important;
+    width:100%;
+    min-width:0;
+    scroll-snap-align:start;
+  }
+
+  /* Doctors become compact vertical slider cards on tablets. */
+  .doctor-card,
+  .doctor-card--wide{
+    display:grid;
+    grid-template-columns:1fr !important;
+    grid-template-rows:250px minmax(250px,auto) !important;
+    height:auto !important;
+    min-height:0;
+    border-radius:24px;
+  }
+  .doctor-card__image,
+  .doctor-card__body{
+    height:auto !important;
+    min-height:0 !important;
+  }
+  .doctor-card__body{
+    padding:22px;
+  }
+  .doctor-card h3{
+    font-size:30px;
+    line-height:1.03;
+    margin-bottom:12px;
+  }
+  .doctor-card p{
+    margin-bottom:14px;
+  }
+  .doctor-card__tags{
+    margin-bottom:16px;
+  }
+  .doctor-card__foot{
+    padding-top:14px;
+  }
+}
+
+@media (max-width:620px){
+  .blog-grid,
+  .doctors__grid{
+    grid-auto-columns:calc(100vw - 32px);
+    gap:12px;
+    margin-inline:calc((100vw - 100%) / -2);
+    padding-inline:max(16px,calc((100vw - 100%) / 2));
+    scroll-padding-inline:max(16px,calc((100vw - 100%) / 2));
+  }
+  .doctor-card,
+  .doctor-card--wide{
+    grid-template-rows:300px auto !important;
+  }
+}
+
+/* Closed overlays remain mounted but live outside the viewport. */
+.lead-modal[aria-hidden="true"],
+.lead-success[aria-hidden="true"],
+.cookie-banner[aria-hidden="true"],
+.inline-success-overlay[aria-hidden="true"]{
+  display:grid !important;
+}
+
+.lead-modal{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translateY(105%);
+  transition:
+    transform .38s var(--ease-ui),
+    opacity .3s ease,
+    visibility 0s linear .38s;
+}
+.lead-modal.is-open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translateY(0);
+  transition-delay:0s;
+}
+.lead-modal__dialog{
+  transform:translateY(24px) scale(.985);
+  transition:transform .36s var(--ease-ui);
+}
+.lead-modal.is-open .lead-modal__dialog{
+  transform:none;
+}
+
+.lead-success{
+  display:grid !important;
+  transform:translateY(110%);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:transform .34s var(--ease-ui),opacity .26s ease,visibility 0s linear .34s;
+}
+.lead-success.is-visible{
+  transform:translateY(0);
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transition-delay:0s;
+}
+
+.inline-success-overlay{
+  display:flex !important;
+  transform:translateY(110%);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+.inline-success-overlay.is-visible{
+  transform:translateY(0);
+  opacity:1;
+  visibility:visible;
+}
+
+.cookie-banner{
+  display:grid !important;
+  bottom:-120vh !important;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:none !important;
+  transition:
+    bottom .42s var(--ease-ui),
+    opacity .3s ease,
+    visibility 0s linear .42s;
+}
+.cookie-banner.is-visible{
+  bottom:max(24px,env(safe-area-inset-bottom)) !important;
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transition-delay:0s;
+}
+@media (max-width:920px){
+  .cookie-banner.is-visible{
+    bottom:max(16px,env(safe-area-inset-bottom)) !important;
+  }
+}
+@media (max-width:620px){
+  .cookie-banner.is-visible{
+    bottom:max(12px,env(safe-area-inset-bottom)) !important;
+  }
+}

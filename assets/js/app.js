@@ -197,6 +197,31 @@
     reviewCards.forEach(card => card.classList.toggle('is-hidden', source !== 'all' && card.dataset.reviewSource !== source));
   }));
 
+  // Yandex reviews uses a fixed inner canvas on tablet widths. Scale it uniformly to the available column width.
+  const yandexReviewsWidget = $('.yandex-reviews-widget');
+  const yandexReviewsFrame = $('iframe', yandexReviewsWidget || document);
+  const syncYandexReviewsWidget = () => {
+    if (!yandexReviewsWidget || !yandexReviewsFrame) return;
+    if (!matchMedia('(min-width: 621px) and (max-width: 1180px)').matches) {
+      yandexReviewsWidget.style.removeProperty('--yandex-scale');
+      yandexReviewsWidget.style.removeProperty('--yandex-scaled-height');
+      return;
+    }
+    const baseWidth = 760;
+    const baseHeight = 520;
+    const availableWidth = yandexReviewsWidget.clientWidth;
+    if (!availableWidth) return;
+    const scale = availableWidth / baseWidth;
+    yandexReviewsWidget.style.setProperty('--yandex-scale', String(scale));
+    yandexReviewsWidget.style.setProperty('--yandex-scaled-height', `${Math.round(baseHeight * scale)}px`);
+  };
+  syncYandexReviewsWidget();
+  yandexReviewsFrame?.addEventListener('load', syncYandexReviewsWidget);
+  window.addEventListener('resize', syncYandexReviewsWidget);
+  if (window.ResizeObserver && yandexReviewsWidget) {
+    new ResizeObserver(syncYandexReviewsWidget).observe(yandexReviewsWidget);
+  }
+
   // Scroll-to-top. Bottom offset is intentionally isolated so a future chat widget can reserve the corner.
   const scrollTopButton = $('[data-scroll-top]');
   const updateScrollTop = () => {
@@ -479,13 +504,13 @@
       if (!inlineSuccess) return;
       clearTimeout(inlineSuccessTimer);
       form.classList.add('is-success-inline');
-      inlineSuccess.hidden = false;
+      inlineSuccess.setAttribute('aria-hidden', 'false');
       requestAnimationFrame(() => inlineSuccess.classList.add('is-visible'));
 
       inlineSuccessTimer = window.setTimeout(() => {
         inlineSuccess.classList.remove('is-visible');
         form.classList.remove('is-success-inline');
-        window.setTimeout(() => { inlineSuccess.hidden = true; }, 220);
+        window.setTimeout(() => { inlineSuccess.setAttribute('aria-hidden', 'true'); }, 220);
         form.reset();
         hydrateTracking(form, {
           form_id: form.dataset.formId || '',
@@ -506,15 +531,18 @@
     try { localStorage.setItem(cookieKey, preference); } catch (_) {}
     if (!cookieBanner) return;
     cookieBanner.classList.remove('is-visible');
-    window.setTimeout(() => { cookieBanner.hidden = true; }, 280);
+    cookieBanner.setAttribute('aria-hidden', 'true');
   };
 
   if (cookieBanner) {
     let saved = '';
     try { saved = localStorage.getItem(cookieKey) || ''; } catch (_) {}
     if (!saved) {
-      cookieBanner.hidden = false;
+      cookieBanner.setAttribute('aria-hidden', 'false');
       requestAnimationFrame(() => requestAnimationFrame(() => cookieBanner.classList.add('is-visible')));
+    } else {
+      cookieBanner.setAttribute('aria-hidden', 'true');
+      cookieBanner.classList.remove('is-visible');
     }
   }
   cookieAccept?.addEventListener('click', () => hideCookieBanner('all'));
