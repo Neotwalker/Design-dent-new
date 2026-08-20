@@ -1,45 +1,23 @@
-# Design Dent - desktop stage 5
+# Design Dent - desktop stage 9
 
-Desktop refinement after review on a 2K display.
+Изменения этого этапа:
 
-Changes in this stage:
-- topbar restored with address/city and opening hours on the left, phone/email on the right;
-- VK and WhatsApp moved to larger icon-only controls in the main desktop header;
-- topbar scroll behavior rewritten with hysteresis and without opacity animation;
-- modal scroll lock no longer changes desktop scroll position and freezes topbar state while open;
-- 2K/ultrawide typography increased across secondary text, cards, forms and footer;
-- hero tag hover uses white background + dark text;
-- doctor/profile text-link icon and label share one hover color with smooth transform;
-- full Yandex Maps reviews iframe restored in the reviews section;
-- blog metadata icons changed to teal and action arrow follows text color;
-- footer logo is white via CSS filter while keeping the source background transparent;
-- footer phone has a dedicated hover color.
+- исправлена телефонная маска: Backspace удаляет цифру, а не символ форматирования, поэтому ввод не застревает после `)`;
+- добавлен cookie banner с сохранением выбора в `localStorage`;
+- modal-форма после успешной проверки показывает отдельный success-dialog поверх формы;
+- inline-форма на странице кратковременно размывается и показывает сообщение об успешной отправке;
+- добавлен блок «Лицензии и сертификаты» с переходом к опубликованным документам действующего сайта и независимой отметке ПроДокторов;
+- сохранены tracking hidden fields, чтобы позже подключить WordPress / CF7 / Flamingo / CRM без изменения UI.
 
-`index.html` is at the archive root for GitHub Deployer.
+## Важно по документам
 
-## Stage 6 - desktop bugfix pass
+Действующий сайт публикует блок «Лицензии и сертификаты», но прямые URL исходных файлов документов не доступны из текущей среды сборки. Поэтому в прототипе не подменялись документы вымышленными сканами: блок ведёт на опубликованные оригиналы и готов к замене карточек на реальные изображения после миграции файлов в WordPress Media Library.
 
-Исправления текущего прохода:
+## WordPress
 
-- на wide/2K desktop увеличена высота hero и ширина текстовой колонки, чтобы CTA не пересекались с быстрыми тегами;
-- иконки VK / WhatsApp / Telegram заменены на более детализированные brand-style SVG;
-- логика sticky header изменена: при скролле сворачивается только topbar, основной header больше не сдвигается transform-ом;
-- добавлены hover-состояния для телефон/email в contacts__info и телефона в appointment__contacts;
-- footer logo заменён на отдельный PNG с реальным прозрачным фоном и белым знаком/надписью;
-- унифицирован hover у ссылок со стрелкой: текст и SVG всегда наследуют один цвет;
-- сохранены предыдущие desktop/topbar/modal/scroll-lock исправления.
+При переносе в WordPress:
 
-## Stage 7 desktop polish
-
-- Before/after desktop layout rebalanced to roughly 40/60: the interactive image is intentionally smaller than the case description panel.
-- Blog card hover now changes the article title color in addition to card/link feedback.
-- Phone fields start from `+7` and keep the Russian country prefix visible while typing/pasting.
-- The service selector in the lead modal spans the full form width.
-- Removed the redundant `allowfullscreen` iframe attribute; `allow="autoplay; fullscreen"` remains.
-- Console note: this project does not load `tag.js` or `tag_turbo.js` directly. If `ERR_CONNECTION_CLOSED` for those files is shown while the Yandex review/map iframe is present, it originates from third-party iframe resources/network filtering rather than `assets/js/app.js`. `runtime.lastError` messages are typically produced by a browser extension runtime and are likewise outside the page script.
-
-
-## Stage 8 desktop fixes
-- Phone inputs are empty by default again, so the `+7 (___) ___-__-__` placeholder is visible.
-- The mask prepends `+7` on the first typed digit and allows the field to be completely cleared without leaving a dangling parenthesis.
-- Desktop before/after and case card now stretch to the same height; the image column is about 43% and the case description gets the remaining width.
+- формы можно связать с CF7/Flamingo или REST/CRM;
+- success-state лучше вызывать по фактическому событию успешной отправки;
+- cookie preference можно заменить/расширить CMP-механикой, если аналитика и внешние сервисы потребуют детального consent;
+- документы лицензий и сертификатов лучше хранить в Media Library и заполнять через ACF repeater / CPT documents.

@@ -219,7 +219,7 @@
     if (!mapShell.contains(event.target) && matchMedia('(pointer: coarse)').matches) mapShell.classList.remove('is-active');
   });
 
-  // Russian phone mask. Placeholder stays visible while the field is empty; +7 is inserted with the first digit.
+  // Russian phone mask. Placeholder stays visible while empty; Backspace always removes the previous digit rather than a formatting character.
   const formatPhone = raw => {
     let digits = String(raw || '').replace(/\D/g, '');
     if (!digits) return '';
@@ -245,24 +245,37 @@
     const moveCaretToEnd = () => {
       requestAnimationFrame(() => input.setSelectionRange(input.value.length, input.value.length));
     };
+    const digitsOnly = () => String(input.value || '').replace(/\D/g, '');
+
     input.addEventListener('input', () => {
       input.value = formatPhone(input.value);
       moveCaretToEnd();
     });
+
     input.addEventListener('paste', event => {
       event.preventDefault();
       input.value = formatPhone(event.clipboardData?.getData('text') || '');
       moveCaretToEnd();
-      input.dispatchEvent(new Event('input', { bubbles: true }));
     });
+
     input.addEventListener('keydown', event => {
-      if (event.key !== 'Backspace' && event.key !== 'Delete') return;
-      const allSelected = input.selectionStart === 0 && input.selectionEnd === input.value.length;
-      const onlyPrefix = input.value === '+7' || input.value === '+7 (';
-      if (allSelected || onlyPrefix) {
-        event.preventDefault();
+      if (event.key !== 'Backspace') return;
+      const start = input.selectionStart ?? input.value.length;
+      const end = input.selectionEnd ?? start;
+      if (start !== end) return; // browser removes a selected fragment; input handler will reformat it.
+
+      event.preventDefault();
+      let digits = digitsOnly();
+      if (!digits || digits === '7') {
         input.value = '';
+        return;
       }
+
+      // The mask always keeps editing at the end, so remove the last entered national-number digit.
+      digits = digits.slice(0, -1);
+      input.value = digits === '7' ? '' : formatPhone(digits);
+      moveCaretToEnd();
+      input.dispatchEvent(new Event('input', { bubbles: true }));
     });
   });
 
@@ -304,6 +317,8 @@
   const modalForm = $('.lead-modal__form', modal || document);
   const modalClose = $('[data-modal-close]');
   const modalBackdrop = $('[data-modal-backdrop]');
+  const modalSuccess = $('[data-lead-success]');
+  const modalSuccessClose = $('[data-success-close]');
   let lastFocused = null;
   let lockedScrollY = 0;
 
@@ -376,7 +391,8 @@
     const service = trigger?.dataset.service || '';
 
     modalForm.reset();
-    $('.form-success', modalForm)?.setAttribute('hidden', '');
+    modalSuccess?.classList.remove('is-visible');
+    modalSuccess?.setAttribute('aria-hidden', 'true');
     hydrateTracking(modalForm, {
       form_id: 'modal_lead',
       form_name: formName,
@@ -394,6 +410,8 @@
 
   const closeLeadModal = () => {
     if (!modal?.classList.contains('is-open')) return;
+    modalSuccess?.classList.remove('is-visible');
+    modalSuccess?.setAttribute('aria-hidden', 'true');
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     unlockBody();
@@ -403,10 +421,12 @@
   $$('[data-open-lead]').forEach(trigger => trigger.addEventListener('click', () => openLeadModal(trigger)));
   modalClose?.addEventListener('click', closeLeadModal);
   modalBackdrop?.addEventListener('click', closeLeadModal);
+  modalSuccessClose?.addEventListener('click', closeLeadModal);
 
   const trapFocus = event => {
     if (event.key !== 'Tab' || !modal?.classList.contains('is-open') || !modalDialog) return;
-    const focusable = $$('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])', modalDialog).filter(el => el.offsetParent !== null);
+    const focusRoot = modalSuccess?.classList.contains('is-visible') ? modalSuccess : modalDialog;
+    const focusable = $$('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])', focusRoot).filter(el => el.offsetParent !== null);
     if (!focusable.length) return;
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
@@ -427,8 +447,9 @@
     trapFocus(event);
   });
 
-  // Demo submit. On WordPress replace this handler with CF7/REST/CRM integration while preserving fields.
+  // Demo submit. On WordPress replace this handler with CF7/REST/CRM integration while preserving these UI states.
   $$('[data-lead-form]').forEach(form => {
+    let inlineSuccessTimer = 0;
     form.addEventListener('submit', event => {
       event.preventDefault();
       hydrateTracking(form);
@@ -443,9 +464,57 @@
         form.elements.phone?.setCustomValidity('');
         return;
       }
-      const success = $('.form-success', form);
-      if (success) success.hidden = false;
-      // Keep the values visible in the prototype so the user can inspect the completed form state.
+
+      if (form === modalForm) {
+        modalSuccess?.classList.add('is-visible');
+        modalSuccess?.setAttribute('aria-hidden', 'false');
+        requestAnimationFrame(() => modalSuccessClose?.focus());
+        return;
+      }
+
+      const inlineSuccess = $('.inline-success-overlay', form);
+      if (!inlineSuccess) return;
+      clearTimeout(inlineSuccessTimer);
+      form.classList.add('is-success-inline');
+      inlineSuccess.hidden = false;
+      requestAnimationFrame(() => inlineSuccess.classList.add('is-visible'));
+
+      inlineSuccessTimer = window.setTimeout(() => {
+        inlineSuccess.classList.remove('is-visible');
+        form.classList.remove('is-success-inline');
+        window.setTimeout(() => { inlineSuccess.hidden = true; }, 220);
+        form.reset();
+        hydrateTracking(form, {
+          form_id: form.dataset.formId || '',
+          form_name: form.dataset.formName || '',
+          source_block: form.elements.namedItem('source_block')?.value || 'inline'
+        });
+      }, 2600);
     });
   });
+
+  // Compact cookie consent banner. The preference is stored locally so the banner does not reappear on every visit.
+  const cookieBanner = $('[data-cookie-banner]');
+  const cookieAccept = $('[data-cookie-accept]');
+  const cookieEssential = $('[data-cookie-essential]');
+  const cookieKey = 'designDentCookieConsent';
+
+  const hideCookieBanner = preference => {
+    try { localStorage.setItem(cookieKey, preference); } catch (_) {}
+    if (!cookieBanner) return;
+    cookieBanner.classList.remove('is-visible');
+    window.setTimeout(() => { cookieBanner.hidden = true; }, 280);
+  };
+
+  if (cookieBanner) {
+    let saved = '';
+    try { saved = localStorage.getItem(cookieKey) || ''; } catch (_) {}
+    if (!saved) {
+      cookieBanner.hidden = false;
+      requestAnimationFrame(() => requestAnimationFrame(() => cookieBanner.classList.add('is-visible')));
+    }
+  }
+  cookieAccept?.addEventListener('click', () => hideCookieBanner('all'));
+  cookieEssential?.addEventListener('click', () => hideCookieBanner('essential'));
+
 })();
