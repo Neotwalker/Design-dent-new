@@ -123,50 +123,10 @@
   serviceNextButton?.addEventListener('click', () => scrollServices(1));
 
 
-  // Fine-pointer drag scrolling for the services carousel. Native touch scrolling is left untouched.
-  if (serviceTrack && matchMedia('(pointer: fine)').matches) {
-    serviceTrack.classList.add('is-draggable');
-    let dragging = false;
-    let dragged = false;
-    let startX = 0;
-    let startScroll = 0;
+  // Desktop services slider is controlled by arrows only.
+  // Touch devices keep the browser's native swipe behaviour.
 
-    serviceTrack.addEventListener('pointerdown', event => {
-      if (event.button !== 0) return;
-      if (event.target.closest('button')) return;
-      dragging = true;
-      dragged = false;
-      startX = event.clientX;
-      startScroll = serviceTrack.scrollLeft;
-      serviceTrack.classList.add('is-dragging');
-      serviceTrack.setPointerCapture?.(event.pointerId);
-    });
 
-    serviceTrack.addEventListener('pointermove', event => {
-      if (!dragging) return;
-      const delta = event.clientX - startX;
-      if (Math.abs(delta) > 4) dragged = true;
-      serviceTrack.scrollLeft = startScroll - delta;
-    });
-
-    const endDrag = event => {
-      if (!dragging) return;
-      dragging = false;
-      serviceTrack.classList.remove('is-dragging');
-      try { serviceTrack.releasePointerCapture?.(event.pointerId); } catch (_) {}
-    };
-    serviceTrack.addEventListener('pointerup', endDrag);
-    serviceTrack.addEventListener('pointercancel', endDrag);
-    serviceTrack.addEventListener('pointerleave', event => { if (dragging && event.buttons === 0) endDrag(event); });
-    serviceTrack.addEventListener('click', event => {
-      if (!dragged) return;
-      event.preventDefault();
-      event.stopPropagation();
-      dragged = false;
-    }, true);
-  }
-
-  // Service cards are native anchors. A drag cancels the click in the capture handler above.
 
   // Licenses and certificates slider.
   const credentialsTrack = $('[data-credentials-track]');

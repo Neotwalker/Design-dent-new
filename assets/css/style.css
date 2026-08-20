@@ -973,10 +973,6 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
 .trust-card__icon .icon{width:16px;height:16px}
 
 /* Services: mouse-drag support is enabled by JS for fine pointers. */
-.service-track.is-draggable{cursor:grab;user-select:none;-webkit-user-select:none}
-.service-track.is-dragging{cursor:grabbing;scroll-snap-type:none}
-.service-track.is-dragging *{pointer-events:none}
-
 /* Founder profile link motion */
 .text-link .icon{transition:transform var(--motion-base) var(--ease-ui),color var(--motion-base) var(--ease-ui)}
 
@@ -1965,5 +1961,26 @@ a,button,.icon,.arrow-circle,.mini-link,.text-link,.doctor-book,.trust-card,.rev
   .doctor-card,
   .doctor-card--wide{
     height:auto;
+  }
+}
+
+
+/* ===== Stage 14: service slider navigation ===== */
+/* Desktop: only arrow buttons move the services slider. */
+@media (min-width:921px){
+  .service-track{
+    overflow-x:hidden;
+    overscroll-behavior-x:none;
+    scroll-behavior:smooth;
+    cursor:default;
+  }
+}
+
+/* Touch devices retain native swipe scrolling. */
+@media (max-width:920px), (pointer:coarse){
+  .service-track{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    touch-action:pan-x pan-y;
   }
 }
